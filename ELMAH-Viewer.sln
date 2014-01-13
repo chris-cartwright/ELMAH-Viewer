@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ELMAH-Viewer", "ELMAH-Viewer\ELMAH-Viewer.csproj", "{1B7D1D5F-4EC7-42FE-9445-29FAAAFE2218}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ELMAH-Viewer.Common", "ELMAH-Viewer.Common\ELMAH-Viewer.Common.csproj", "{AB5125F0-FD7E-419A-B8CB-7FF0CF70E673}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ELMAH-Viewer.Sources.SqlServer", "ELMAH-Viewer.Sources.SqlServer\ELMAH-Viewer.Sources.SqlServer.csproj", "{FD54CF3D-8C46-40CD-8091-CBFF189D7C81}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1B7D1D5F-4EC7-42FE-9445-29FAAAFE2218}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B7D1D5F-4EC7-42FE-9445-29FAAAFE2218}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B7D1D5F-4EC7-42FE-9445-29FAAAFE2218}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B7D1D5F-4EC7-42FE-9445-29FAAAFE2218}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB5125F0-FD7E-419A-B8CB-7FF0CF70E673}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB5125F0-FD7E-419A-B8CB-7FF0CF70E673}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB5125F0-FD7E-419A-B8CB-7FF0CF70E673}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB5125F0-FD7E-419A-B8CB-7FF0CF70E673}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD54CF3D-8C46-40CD-8091-CBFF189D7C81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD54CF3D-8C46-40CD-8091-CBFF189D7C81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD54CF3D-8C46-40CD-8091-CBFF189D7C81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD54CF3D-8C46-40CD-8091-CBFF189D7C81}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
