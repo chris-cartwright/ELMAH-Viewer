@@ -6,21 +6,44 @@
              xmlns:converters="clr-namespace:ELMAH_Viewer.Converters"
              xmlns:controls="clr-namespace:ELMAH_Viewer.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="200" d:DesignWidth="150">
+             d:DesignHeight="200" d:DesignWidth="150" d:DataContext="{d:DesignInstance controls:SearchItem}">
     <UserControl.Resources>
         <converters:ProxyConverter x:Key="ListBoxDisabledConverter" Type="{x:Type controls:SearchItem+ListBoxDisabledConverter}"/>
+        <converters:ListContainsElementsConverter x:Key="ListContainsElementsConverter"/>
     </UserControl.Resources>
-    <DockPanel Width="150">
-        <Label Content="Application" DockPanel.Dock="Top" />
+    <DockPanel Width="150" IsEnabled="{Binding SearchOptions, Converter={StaticResource ListContainsElementsConverter}}">
+        <Label Content="{Binding SearchType}" DockPanel.Dock="Top" />
         <ComboBox x:Name="ComboBoxMode" DockPanel.Dock="Top">
             <ComboBoxItem Content="Inclusive"/>
             <ComboBoxItem Content="Exclusive"/>
             <ComboBoxItem Content="Disabled" IsSelected="True"/>
         </ComboBox>
-        <ListBox Margin="0,6,0,0" DockPanel.Dock="Top" SelectionMode="Extended" IsEnabled="{Binding ElementName=ComboBoxMode, Path=SelectedValue, Converter={StaticResource ListBoxDisabledConverter}, Mode=OneWay}">
-            <ListBoxItem Content="Blarg 1"/>
-            <ListBoxItem Content="Blarg 2"/>
-            <ListBoxItem Content="Blarg 3"/>
-        </ListBox>
+        <DockPanel DockPanel.Dock="Top" LastChildFill="False" Margin="0,6,0,0">
+            <DockPanel.IsEnabled>
+                <Binding ElementName="ComboBoxMode" Path="SelectedValue" Mode="OneWay">
+                    <Binding.Converter>
+                        <StaticResource ResourceKey="ListBoxDisabledConverter" />
+                    </Binding.Converter>
+                </Binding>
+            </DockPanel.IsEnabled>
+            <Button Content="All" Width="70" Click="All_Click" />
+            <Button Content="None" DockPanel.Dock="Right" Width="70" Click="None_Click" />
+        </DockPanel>
+        <ScrollViewer DockPanel.Dock="Bottom" VerticalScrollBarVisibility="Auto">
+            <ItemsControl Name="CheckboxHolder"  Margin="0,6,0,0" ItemsSource="{Binding SearchOptions}">
+                <ItemsControl.IsEnabled>
+                    <Binding ElementName="ComboBoxMode" Path="SelectedValue" Mode="OneWay">
+                        <Binding.Converter>
+                            <StaticResource ResourceKey="ListBoxDisabledConverter" />
+                        </Binding.Converter>
+                    </Binding>
+                </ItemsControl.IsEnabled>
+                <ItemsControl.ItemTemplate>
+                    <ItemContainerTemplate>
+                        <CheckBox Content="{Binding}" Margin="2"/>
+                    </ItemContainerTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
     </DockPanel>
 </UserControl>

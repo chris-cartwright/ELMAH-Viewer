@@ -7,9 +7,13 @@
         xmlns:elmahViewer="clr-namespace:ELMAH_Viewer"
         xmlns:xcad="http://schemas.xceed.com/wpf/xaml/avalondock"
         xmlns:controls="clr-namespace:ELMAH_Viewer.Controls"
+        xmlns:converters="clr-namespace:ELMAH_Viewer.Converters"
         mc:Ignorable="d"
-        Title="ELMAH-Viewer" Height="500" Width="900" MinHeight="500" MinWidth="900"
+        Title="ELMAH-Viewer" Height="500" Width="980" MinHeight="500" MinWidth="980"
         d:DataContext="{d:DesignInstance elmahViewer:ViewModel}">
+    <Window.Resources>
+        <converters:CollectionConverter x:Key="CollectionConverter"/>
+    </Window.Resources>
     <Grid>
         <Menu Height="24" Margin="0" VerticalAlignment="Top">
             <MenuItem Header="_Connect" />
@@ -19,13 +23,23 @@
                 <xcad:LayoutPanel Orientation="Vertical">
                     <xcad:LayoutAnchorablePane DockHeight="288">
                         <xcad:LayoutAnchorable Title="Search Criteria" CanClose="False">
-                            <Grid VerticalAlignment="Top">
+                            <Grid>
                                 <Label Content="Start Date:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
                                 <xctk:DateTimePicker Margin="81,12,0,0" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="140" Value="{Binding StartDateTime}" Format="Custom" FormatString="dd/MM/yyyy HH:mm"/>
                                 <Label Content="End Date:" HorizontalAlignment="Left" Margin="226,10,0,0" VerticalAlignment="Top"/>
                                 <xctk:DateTimePicker Margin="292,12,0,0" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="140" Value="{Binding EndDateTime}" Format="Custom" FormatString="dd/MM/yyyy HH:mm"/>
-                                <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Height="204" RenderTransformOrigin="0,0.5" Margin="12,43,0,0">
-                                    <controls:SearchItem />
+                                <StackPanel Orientation="Horizontal" RenderTransformOrigin="0,0.5" Margin="12,43,0,0">
+                                    <StackPanel.Resources>
+                                        <Style TargetType="{x:Type controls:SearchItem}">
+                                            <Setter Property="Margin" Value="0,0,6,0"/>
+                                        </Style>
+                                    </StackPanel.Resources>
+                                    <controls:SearchItem SearchType="Applications" SearchOptions="{Binding DataContext.Applications, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" />
+                                    <controls:SearchItem SearchType="Hosts" SearchOptions="{Binding DataContext.Hosts, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" />
+                                    <controls:SearchItem SearchType="Types" SearchOptions="{Binding DataContext.Types, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" />
+                                    <controls:SearchItem SearchType="Sources" SearchOptions="{Binding DataContext.Sources, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" />
+                                    <controls:SearchItem SearchType="Users" SearchOptions="{Binding DataContext.Users, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" />
+                                    <controls:SearchItem SearchType="StatusCodes" SearchOptions="{Binding DataContext.StatusCodes, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={StaticResource CollectionConverter}}" />
                                 </StackPanel>
                             </Grid>
                         </xcad:LayoutAnchorable>

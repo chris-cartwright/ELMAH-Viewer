@@ -88,7 +88,10 @@
     <Compile Include="Controls\SearchItem.xaml.cs">
       <DependentUpon>SearchItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\CollectionConverter.cs" />
+    <Compile Include="Converters\ListContainsElementsConverter.cs" />
     <Compile Include="Converters\ProxyConverter.cs" />
+    <Compile Include="Helpers.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="SimpleErrorLog.cs" />
     <Compile Include="ViewModel.cs" />

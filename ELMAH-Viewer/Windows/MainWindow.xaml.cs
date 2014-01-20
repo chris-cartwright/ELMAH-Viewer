@@ -9,9 +9,9 @@ namespace ELMAH_Viewer.Windows
 	{
 		public MainWindow()
 		{
-			InitializeComponent();
-
 			DataContext = ViewModel.Instance;
+			
+			InitializeComponent();
 		}
 	}
 }
