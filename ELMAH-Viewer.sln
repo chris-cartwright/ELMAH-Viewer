@@ -7,6 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ELMAH-Viewer.Common", "ELMA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ELMAH-Viewer.Sources.SqlServer", "ELMAH-Viewer.Sources.SqlServer\ELMAH-Viewer.Sources.SqlServer.csproj", "{FD54CF3D-8C46-40CD-8091-CBFF189D7C81}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sample", "Sample", "{2159DF5C-17FA-4BDA-9C1F-E52631A67D77}"
+	ProjectSection(SolutionItems) = preProject
+		Error.xml = Error.xml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

@@ -45,6 +45,7 @@
     <Reference Include="PresentationUI, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="ReachFramework" />
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Printing" />
@@ -91,6 +92,8 @@
     <Compile Include="Converters\CollectionConverter.cs" />
     <Compile Include="Converters\ListContainsElementsConverter.cs" />
     <Compile Include="Converters\ProxyConverter.cs" />
+    <Compile Include="ErrorLog.cs" />
+    <Compile Include="Exceptions.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="SimpleErrorLog.cs" />
@@ -129,6 +132,9 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Misc\ErrorDetails.xsd">
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

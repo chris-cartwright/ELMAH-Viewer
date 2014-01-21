@@ -9,6 +9,7 @@
         xmlns:controls="clr-namespace:ELMAH_Viewer.Controls"
         xmlns:converters="clr-namespace:ELMAH_Viewer.Converters"
         mc:Ignorable="d"
+        Name="ElmahViewerWindow"
         Title="ELMAH-Viewer" Height="500" Width="980" MinHeight="500" MinWidth="980"
         d:DataContext="{d:DesignInstance elmahViewer:ViewModel}">
     <Window.Resources>
@@ -28,6 +29,7 @@
                                 <xctk:DateTimePicker Margin="81,12,0,0" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="140" Value="{Binding StartDateTime}" Format="Custom" FormatString="dd/MM/yyyy HH:mm"/>
                                 <Label Content="End Date:" HorizontalAlignment="Left" Margin="226,10,0,0" VerticalAlignment="Top"/>
                                 <xctk:DateTimePicker Margin="292,12,0,0" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="140" Value="{Binding EndDateTime}" Format="Custom" FormatString="dd/MM/yyyy HH:mm"/>
+                                <Button Content="Search" VerticalAlignment="Top" Width="75" Margin="0,12,6,0" HorizontalAlignment="Right"/>
                                 <StackPanel Orientation="Horizontal" RenderTransformOrigin="0,0.5" Margin="12,43,0,0">
                                     <StackPanel.Resources>
                                         <Style TargetType="{x:Type controls:SearchItem}">
@@ -70,11 +72,73 @@
                         <xcad:LayoutDocumentPane>
                             <xcad:LayoutDocument Title="Selected Log" CanClose="False">
                                 <TabControl Margin="0" DataContext="{Binding ErrorLog}">
-                                    <TabItem Header="TabItem">
-                                        <Grid Background="#FFE5E5E5"/>
+                                    <TabItem Header="Error">
+                                        <Grid>
+                                            <Grid.Resources>
+                                                <Style TargetType="{x:Type RowDefinition}">
+                                                    <Setter Property="Height" Value="25"/>
+                                                </Style>
+                                            </Grid.Resources>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="150" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Label Content="Date/Time:" Grid.Column="0" Grid.Row="0"/>
+                                            <Label Content="Status Code:" Grid.Column="0" Grid.Row="1"/>
+                                            <Label Content="Type:" Grid.Column="0" Grid.Row="2"/>
+                                            <Label Content="Source:" Grid.Column="0" Grid.Row="3"/>
+                                            <Label Content="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.TimeUtc}" Grid.Column="1" Grid.Row="0"/>
+                                            <Label Content="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.StatusCode}" Grid.Column="1" Grid.Row="1"/>
+                                            <Label Content="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.Type}" Grid.Column="1" Grid.Row="2"/>
+                                            <Label Content="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.Source}" Grid.Column="1" Grid.Row="3"/>
+                                        </Grid>
                                     </TabItem>
-                                    <TabItem Header="TabItem">
-                                        <Grid Background="#FFE5E5E5"/>
+                                    <TabItem Header="Form">
+                                        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.FormValues, Mode=OneWay}">
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn Header="Name" Binding="{Binding Key}" Width="150"/>
+                                                <DataGridTextColumn Header="Value" Binding="{Binding Value}" Width="*"/>
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                    </TabItem>
+                                    <TabItem Header="Cookie">
+                                        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.CookieValues, Mode=OneWay}">
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="150"/>
+                                                <DataGridTextColumn Header="Value" Binding="{Binding Value}" Width="*"/>
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                    </TabItem>
+                                    <TabItem Header="Query String">
+                                        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.QueryStringValues, Mode=OneWay}">
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="150"/>
+                                                <DataGridTextColumn Header="Value" Binding="{Binding Value}" Width="*"/>
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                    </TabItem>
+                                    <TabItem Header="Server Variables">
+                                        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.ServerValues, Mode=OneWay}">
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="150"/>
+                                                <DataGridTextColumn Header="Value" Binding="{Binding Value}" Width="*"/>
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                    </TabItem>
+                                    <TabItem Header="Exception">
+                                        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.ExceptionValues, Mode=OneWay}">
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="150"/>
+                                                <DataGridTextColumn Header="Value" Binding="{Binding Value}" Width="*"/>
+                                            </DataGrid.Columns>
+                                        </DataGrid>
                                     </TabItem>
                                 </TabControl>
                             </xcad:LayoutDocument>

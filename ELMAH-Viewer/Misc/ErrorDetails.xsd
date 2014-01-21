@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="error">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="serverVariables">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" name="item">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="value">
+                      <xs:complexType>
+                        <xs:attribute name="string" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="name" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="form">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" name="item">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="value">
+                      <xs:complexType>
+                        <xs:attribute name="string" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="name" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="application" type="xs:string" use="required" />
+      <xs:attribute name="host" type="xs:string" use="required" />
+      <xs:attribute name="type" type="xs:string" use="required" />
+      <xs:attribute name="message" type="xs:string" use="required" />
+      <xs:attribute name="source" type="xs:string" use="required" />
+      <xs:attribute name="detail" type="xs:string" use="required" />
+      <xs:attribute name="time" type="xs:dateTime" use="required" />
+      <xs:attribute name="statusCode" type="xs:unsignedShort" use="required" />
+      <xs:attribute name="webHostHtmlMessage" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -36,6 +36,8 @@ namespace ELMAH_Viewer
 			Sources = new ObservableCollection<string>();
 			Users = new ObservableCollection<string>();
 			StatusCodes = new ObservableCollection<int>();
+
+			ErrorLog = new ErrorLog() { TimeUtc = DateTime.Now, StatusCode = 504, Type = typeof(Exception).ToString(), Source = "OMG!" };
 		}
 
 		public DateTime StartDateTime { get; set; }
@@ -50,6 +52,6 @@ namespace ELMAH_Viewer
 
 		public ObservableCollection<ISimpleErrorLog> ErrorLogs { get; set; }
 
-		public IErrorLog ErrorLog { get; set; }
+		public ErrorLog ErrorLog { get; set; }
 	}
 }
