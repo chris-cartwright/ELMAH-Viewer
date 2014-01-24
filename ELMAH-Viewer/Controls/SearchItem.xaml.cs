@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Globalization;
 using System.Windows;
@@ -10,7 +8,6 @@ using System.Windows.Data;
 using ELMAH_Viewer.Annotations;
 using PostSharp.Patterns.Model;
 using System.Linq;
-using Xceed.Wpf.AvalonDock.Controls;
 
 namespace ELMAH_Viewer.Controls
 {
