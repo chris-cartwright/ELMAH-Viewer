@@ -17,7 +17,13 @@
     </Window.Resources>
     <Grid>
         <Menu Height="24" Margin="0" VerticalAlignment="Top">
-            <MenuItem Header="_Connect" />
+            <MenuItem Header="_Connect" ItemsSource="{Binding LogSources}" MenuItem.Click="Connect_OnClick">
+                <MenuItem.ItemContainerStyle>
+                    <Style>
+                        <Setter Property="MenuItem.Header" Value="{Binding Metadata.Name}" />
+                    </Style>
+                </MenuItem.ItemContainerStyle>
+            </MenuItem>
         </Menu>
         <xcad:DockingManager Margin="0,24,0,0">
             <xcad:LayoutRoot>

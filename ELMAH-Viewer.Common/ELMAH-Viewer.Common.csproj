@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Enumerations.cs" />
     <Compile Include="IErrorLog.cs" />
+    <Compile Include="ILogSourceMetadata.cs" />
     <Compile Include="ISearchParameter.cs" />
     <Compile Include="ISearchParameters.cs" />
     <Compile Include="ISimpleErrorLog.cs" />

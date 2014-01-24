@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel.Composition;
+using System.ComponentModel.Composition.Hosting;
 using System.Threading;
+using System.Windows;
 using ELMAH_Viewer.Common;
+using ELMAH_Viewer.Properties;
 using PostSharp.Patterns.Model;
 
 namespace ELMAH_Viewer
@@ -25,6 +29,21 @@ namespace ELMAH_Viewer
 
 		private ViewModel()
 		{
+			AggregateCatalog catalog = new AggregateCatalog();
+			catalog.Catalogs.Add(new DirectoryCatalog(Settings.Default.SourcesDirectory));
+
+			CompositionContainer container = new CompositionContainer(catalog);
+
+			try
+			{
+				container.ComposeParts(this);
+			}
+			catch (CompositionException)
+			{
+				MessageBox.Show("Could not load error sources. Exiting application.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+				Application.Current.Shutdown();
+			}
+
 			StartDateTime = DateTime.Now - new TimeSpan(7, 0, 0, 0, 0);
 			EndDateTime = DateTime.Now;
 
@@ -37,8 +56,11 @@ namespace ELMAH_Viewer
 			Users = new ObservableCollection<string>();
 			StatusCodes = new ObservableCollection<int>();
 
-			ErrorLog = new ErrorLog() { TimeUtc = DateTime.Now, StatusCode = 504, Type = typeof(Exception).ToString(), Source = "OMG!" };
+			ErrorLog = new ErrorLog();
 		}
+
+		[ImportMany(typeof(ILogSource))]
+		public Lazy<ILogSource, ILogSourceMetadata>[] LogSources { get; set; }
 
 		public DateTime StartDateTime { get; set; }
 		public DateTime EndDateTime { get; set; }

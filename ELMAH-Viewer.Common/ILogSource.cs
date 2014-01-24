@@ -11,6 +11,7 @@ namespace ELMAH_Viewer.Common
 		ISet<string> Users { get; }
 		ISet<int> StatusCodes { get; }
 
+		void Connect();
 		ISimpleErrorLog[] GetLogs(int count, int offset);
 		ISimpleErrorLog[] SearchLogs(int count, int offset, ISearchParameters parameters);
 	}
