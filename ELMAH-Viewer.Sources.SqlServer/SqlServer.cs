@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Controls;
 using ELMAH_Viewer.Common;
 using System.ComponentModel.Composition;
 

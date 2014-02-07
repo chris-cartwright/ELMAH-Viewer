@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using System.Data.SqlClient;
+﻿using System.Data.SqlClient;
 using System.Windows.Controls;
 using ELMAH_Viewer.Common;
 

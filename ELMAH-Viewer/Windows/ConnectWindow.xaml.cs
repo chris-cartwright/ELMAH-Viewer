@@ -1,7 +1,4 @@
-﻿using System;
-using System.Globalization;
-using System.Windows;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
 namespace ELMAH_Viewer.Windows
 {

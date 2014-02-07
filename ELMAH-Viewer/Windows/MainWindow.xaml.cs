@@ -3,7 +3,6 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using ELMAH_Viewer.Common;
-using ELMAH_Viewer.Properties;
 
 namespace ELMAH_Viewer.Windows
 {
