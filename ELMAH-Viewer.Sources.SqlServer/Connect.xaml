@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="ELMAH_Viewer.Sources.SqlServer.Connect"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:common="clr-namespace:ELMAH_Viewer.Common;assembly=ELMAH-Viewer.Common"
+             mc:Ignorable="d" Name="ConnectUserControl" Height="225" Width="286">
+    <Grid>
+        <Button Content="Cancel" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="75" Command="common:Commands.Cancel"/>
+        <Button Content="Connect" HorizontalAlignment="Right" Margin="0,0,90,10" VerticalAlignment="Bottom" Width="75" Command="common:Commands.Connect"/>
+        <Label Content="Name:" HorizontalAlignment="Left" Margin="10,8,0,0" VerticalAlignment="Top"/>
+        <TextBox Name="NameTextBox"  Height="23" Margin="77,10,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox Height="23" Margin="77,38,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="{Binding ElementName=ConnectUserControl, Path=DataContext.DataSource}"/>
+        <TextBox Height="23" Margin="77,66,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="{Binding ElementName=ConnectUserControl, Path=DataContext.InitialCatalog}"/>
+        <Label Content="Server:" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top"/>
+        <Label Content="Database:" HorizontalAlignment="Left" Margin="10,64,0,0" VerticalAlignment="Top"/>
+        <GroupBox Margin="10,95,10,0" VerticalAlignment="Top" Height="91">
+            <GroupBox.Header>
+                <CheckBox IsChecked="{Binding ElementName=ConnectUserControl, Path=DataContext.IntegratedSecurity}">Integrated Security</CheckBox>
+            </GroupBox.Header>
+            <Grid DataContext="{Binding ElementName=ConnectUserControl, Path=DataContext}" IsEnabled="{Binding IntegratedSecurity}">
+                <TextBox Height="23" Margin="78,10,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+                <TextBox Height="23" Margin="78,38,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+                <Label Content="User:" HorizontalAlignment="Left" Margin="10,8,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.105,-2.269"/>
+                <Label Content="Password:" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top"/>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</UserControl>

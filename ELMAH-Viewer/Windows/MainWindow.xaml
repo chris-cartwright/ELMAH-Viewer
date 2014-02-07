@@ -17,7 +17,7 @@
     </Window.Resources>
     <Grid>
         <Menu Height="24" Margin="0" VerticalAlignment="Top">
-            <MenuItem Header="_Connect" ItemsSource="{Binding LogSources}" MenuItem.Click="Connect_OnClick">
+            <MenuItem Header="_Connect" ItemsSource="{Binding LogSources}" Click="Connect_OnClick">
                 <MenuItem.ItemContainerStyle>
                     <Style>
                         <Setter Property="MenuItem.Header" Value="{Binding Metadata.Name}" />

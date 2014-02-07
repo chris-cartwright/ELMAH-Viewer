@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Controls;
 using ELMAH_Viewer.Common;
 using System.ComponentModel.Composition;
 
@@ -16,7 +17,12 @@ namespace ELMAH_Viewer.Sources.SqlServer
 		public ISet<string> Users { get; private set; }
 		public ISet<int> StatusCodes { get; private set; }
 
-		public void Connect()
+		public IConnectionDialog GetConnectionDialog()
+		{
+			return new Connect();
+		}
+
+		public void Connect(string name, string settings)
 		{
 			throw new NotImplementedException();
 		}

@@ -1,0 +1,11 @@
+﻿<Window x:Class="ELMAH_Viewer.Windows.ConnectWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:common="clr-namespace:ELMAH_Viewer.Common;assembly=ELMAH-Viewer.Common"
+        Title="ConnectWindow" ResizeMode="NoResize" SizeToContent="WidthAndHeight">
+    <Window.CommandBindings>
+        <CommandBinding Command="common:Commands.Cancel" Executed="CommandBinding_OnCancelExecuted"/>
+        <CommandBinding Command="common:Commands.Connect" Executed="CommandBinding_OnConnectExecuted"/>
+    </Window.CommandBindings>
+    <Grid Name="Grid"/>
+</Window>

@@ -22,14 +22,5 @@ namespace ELMAH_Viewer.Properties {
                 return defaultInstance;
             }
         }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Sources")]
-        public string SourcesDirectory {
-            get {
-                return ((string)(this["SourcesDirectory"]));
-            }
-        }
     }
 }

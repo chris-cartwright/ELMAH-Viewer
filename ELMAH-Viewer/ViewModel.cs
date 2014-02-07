@@ -5,7 +5,6 @@ using System.ComponentModel.Composition.Hosting;
 using System.Threading;
 using System.Windows;
 using ELMAH_Viewer.Common;
-using ELMAH_Viewer.Properties;
 using PostSharp.Patterns.Model;
 
 namespace ELMAH_Viewer
@@ -29,7 +28,7 @@ namespace ELMAH_Viewer
 		private ViewModel()
 		{
 			AggregateCatalog catalog = new AggregateCatalog();
-			catalog.Catalogs.Add(new DirectoryCatalog(Settings.Default.SourcesDirectory));
+			catalog.Catalogs.Add(new DirectoryCatalog(Configuration.SettingsSection.Instance.Sources.Location));
 
 			CompositionContainer container = new CompositionContainer(catalog);
 
