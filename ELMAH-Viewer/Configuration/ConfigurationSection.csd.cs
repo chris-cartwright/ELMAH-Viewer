@@ -114,8 +114,8 @@ namespace ELMAH_Viewer.Configuration
     /// <summary>
     /// A collection of ConnectionElement instances.
     /// </summary>
-    [global::System.Configuration.ConfigurationCollectionAttribute(typeof(global::ELMAH_Viewer.Configuration.ConnectionElement), CollectionType=global::System.Configuration.ConfigurationElementCollectionType.BasicMap, AddItemName=global::ELMAH_Viewer.Configuration.SavedConnectionsCollection.ConnectionElementPropertyName)]
-    public partial class SavedConnectionsCollection : global::System.Configuration.ConfigurationElementCollection
+    [global::System.Configuration.ConfigurationCollectionAttribute(typeof(global::ELMAH_Viewer.Configuration.ConnectionElement), CollectionType=global::System.Configuration.ConfigurationElementCollectionType.BasicMapAlternate, AddItemName=global::ELMAH_Viewer.Configuration.SavedConnectionsCollection.ConnectionElementPropertyName)]
+    public partial class SavedConnectionsCollection : global::System.Configuration.ConfigurationElementCollection, global::System.Collections.Generic.ICollection<global::ELMAH_Viewer.Configuration.ConnectionElement>
     {
         
         #region Constants
@@ -136,7 +136,7 @@ namespace ELMAH_Viewer.Configuration
         {
             get
             {
-                return global::System.Configuration.ConfigurationElementCollectionType.BasicMap;
+                return global::System.Configuration.ConfigurationElementCollectionType.BasicMapAlternate;
             }
         }
         
@@ -262,6 +262,81 @@ namespace ELMAH_Viewer.Configuration
         public global::ELMAH_Viewer.Configuration.ConnectionElement GetItemByKey(string name)
         {
             return ((global::ELMAH_Viewer.Configuration.ConnectionElement)(base.BaseGet(((object)(name)))));
+        }
+        #endregion
+        
+        #region ICollection
+        /// <summary>
+        /// Removes all items from the <see cref="global::System.Configuration.ConfigurationElementCollection"/>.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.1.0")]
+        public void Clear()
+        {
+            base.BaseClear();
+        }
+        
+        /// <summary>
+        /// Determines whether the <see cref="global::System.Configuration.ConfigurationElementCollection"/> contains a specific value.
+        /// </summary>
+        /// <param name="connection">The object to locate in the <see cref="global::ELMAH_Viewer.Configuration.ConnectionElement"/>.</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.1.0")]
+        public bool Contains(global::ELMAH_Viewer.Configuration.ConnectionElement connection)
+        {
+            return (base.BaseIndexOf(connection) >= 0);
+        }
+        
+        /// <summary>
+        /// Copies the elements of the <see cref="global::System.Configuration.ConfigurationElementCollection"/> to an <see cref="System.Array"/>, starting at a particular <see cref="System.Array"/> index.
+        /// </summary>
+        /// <param name="array">The one-dimensional <see cref="System.Array"/> that is the destination of the elements copied from <see cref="global::System.Configuration.ConfigurationElementCollection"/>. The <see cref="System.Array"/> must have zero-based indexing.</param>
+        /// <param name="arrayIndex">The zero-based index in <paramref name="array"/> at which copying begins.</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.1.0")]
+        public void CopyTo(global::ELMAH_Viewer.Configuration.ConnectionElement[] array, int arrayIndex)
+        {
+            base.CopyTo(array, arrayIndex);
+        }
+        
+        /// <summary>
+        /// Gets a value indicating whether the <see cref="global::System.Configuration.ConfigurationElementCollection"/> is read-only.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.1.0")]
+        bool global::System.Collections.Generic.ICollection<global::ELMAH_Viewer.Configuration.ConnectionElement>.IsReadOnly
+        {
+            get
+            {
+                return this.IsReadOnly();
+            }
+        }
+        
+        /// <summary>
+        /// Removes the first occurrence of a specific object from the <see cref="global::System.Configuration.ConfigurationElementCollection"/>.
+        /// </summary>
+        /// <param name="item">The <see cref="global::ELMAH_Viewer.Configuration.ConnectionElement"/> to remove.</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.1.0")]
+        bool global::System.Collections.Generic.ICollection<global::ELMAH_Viewer.Configuration.ConnectionElement>.Remove(global::ELMAH_Viewer.Configuration.ConnectionElement item)
+        {
+            int idx = base.BaseIndexOf(item);
+            if ((idx == -1))
+            {
+                return false;
+            }
+            base.BaseRemoveAt(idx);
+            return true;
+        }
+        
+        /// <summary>
+        /// Returns an enumerator that iterates through the collection.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.1.0")]
+        public new global::System.Collections.Generic.IEnumerator<global::ELMAH_Viewer.Configuration.ConnectionElement> GetEnumerator()
+        {
+            global::System.Collections.Generic.List<global::ELMAH_Viewer.Configuration.ConnectionElement> list = new global::System.Collections.Generic.List<global::ELMAH_Viewer.Configuration.ConnectionElement>(base.Count);
+            global::System.Collections.IEnumerator iter = base.GetEnumerator();
+            for (; iter.MoveNext(); )
+            {
+                list.Add(((global::ELMAH_Viewer.Configuration.ConnectionElement)(iter.Current)));
+            }
+            return list.GetEnumerator();
         }
         #endregion
         

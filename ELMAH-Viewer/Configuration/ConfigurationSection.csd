@@ -25,7 +25,7 @@
         </elementProperty>
       </elementProperties>
     </configurationSection>
-    <configurationElementCollection name="SavedConnectionsCollection" collectionType="BasicMap" xmlItemName="connection" codeGenOptions="Indexer, AddMethod, RemoveMethod, GetItemMethods">
+    <configurationElementCollection name="SavedConnectionsCollection" xmlItemName="connection" codeGenOptions="Indexer, AddMethod, RemoveMethod, GetItemMethods, ICollection">
       <itemType>
         <configurationElementMoniker name="/c2684573-4a8c-4361-b8c8-aaa072334f16/ConnectionElement" />
       </itemType>

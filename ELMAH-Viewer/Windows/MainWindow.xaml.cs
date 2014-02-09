@@ -3,6 +3,8 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using ELMAH_Viewer.Common;
+using ELMAH_Viewer.Configuration;
+using ELMAH_Viewer.Properties;
 
 namespace ELMAH_Viewer.Windows
 {
@@ -37,11 +39,23 @@ namespace ELMAH_Viewer.Windows
 			connect.Focus();
 			connect.ShowDialog();
 
-			if (connect.Created)
+			if (!connect.Created)
 			{
-				MessageBox.Show("Created connection");
-				// Save/update connection
+				return;
 			}
+
+			// Save/update connection
+			ConnectionElement connection = SettingsSection.Instance.SavedConnections.GetItemByKey(dlg.Name);
+
+			if (connection == null)
+			{
+				connection = new ConnectionElement() { Name = dlg.Name };
+				SettingsSection.Instance.SavedConnections.Add(connection);
+			}
+
+			connection.Content = dlg.Settings;
+			SettingsSection.Save();
+			MessageBox.Show("Created connection");
 		}
 	}
 }

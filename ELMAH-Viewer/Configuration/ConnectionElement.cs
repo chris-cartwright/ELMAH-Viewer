@@ -24,7 +24,7 @@ namespace ELMAH_Viewer.Configuration
 			// ReSharper disable once ConditionIsAlwaysTrueOrFalse
 			// ReSharper disable HeuristicUnreachableCode
 			if (writer == null)
-				return false;
+				return true;
 			// ReSharper restore HeuristicUnreachableCode
 
 			writer.WriteStartAttribute(NamePropertyName);

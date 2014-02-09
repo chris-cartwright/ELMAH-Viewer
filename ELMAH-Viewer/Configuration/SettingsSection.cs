@@ -17,6 +17,7 @@ namespace ELMAH_Viewer.Configuration
 		public static void Save()
 		{
 			_configuration.Save(ConfigurationSaveMode.Modified);
+			ConfigurationManager.RefreshSection("settings");
 		}
 	}
 }
