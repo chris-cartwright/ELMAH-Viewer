@@ -47,6 +47,8 @@
     <Compile Include="Connect.xaml.cs">
       <DependentUpon>Connect.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\BooleanConverter.cs" />
+    <Compile Include="Converters\InverseConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlServer.cs" />
   </ItemGroup>

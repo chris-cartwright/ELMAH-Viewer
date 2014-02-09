@@ -4,7 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:common="clr-namespace:ELMAH_Viewer.Common;assembly=ELMAH-Viewer.Common"
+             xmlns:converters="clr-namespace:ELMAH_Viewer.Sources.SqlServer.Converters"
              mc:Ignorable="d" Name="ConnectUserControl" Height="225" Width="286">
+    <UserControl.Resources>
+        <converters:InverseConverter x:Key="InverseConverter" />
+    </UserControl.Resources>
     <Grid>
         <Button Content="Cancel" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="75" Command="common:Commands.Cancel"/>
         <Button Content="Connect" HorizontalAlignment="Right" Margin="0,0,90,10" VerticalAlignment="Bottom" Width="75" Command="common:Commands.Connect"/>
@@ -18,10 +22,10 @@
             <GroupBox.Header>
                 <CheckBox IsChecked="{Binding ElementName=ConnectUserControl, Path=DataContext.IntegratedSecurity}">Integrated Security</CheckBox>
             </GroupBox.Header>
-            <Grid DataContext="{Binding ElementName=ConnectUserControl, Path=DataContext}" IsEnabled="{Binding IntegratedSecurity}">
-                <TextBox Height="23" Margin="78,10,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-                <TextBox Height="23" Margin="78,38,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-                <Label Content="User:" HorizontalAlignment="Left" Margin="10,8,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.105,-2.269"/>
+            <Grid DataContext="{Binding ElementName=ConnectUserControl, Path=DataContext}" IsEnabled="{Binding IntegratedSecurity, Converter={StaticResource InverseConverter}}">
+                <TextBox Height="23" Margin="78,10,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="{Binding ElementName=ConnectUserControl, Path=DataContext.UserID}"/>
+                <TextBox Height="23" Margin="78,38,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="{Binding ElementName=ConnectUserControl, Path=DataContext.Password}"/>
+                <Label Content="User:" HorizontalAlignment="Left" Margin="10,8,0,0" VerticalAlignment="Top"/>
                 <Label Content="Password:" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top"/>
             </Grid>
         </GroupBox>
