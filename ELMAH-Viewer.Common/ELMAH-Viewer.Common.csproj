@@ -33,6 +33,7 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
@@ -52,6 +53,7 @@
     <Compile Include="ISearchParameters.cs" />
     <Compile Include="ISimpleErrorLog.cs" />
     <Compile Include="NotifyProxy.cs" />
+    <Compile Include="ExportPluginAttribute.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ILogSource.cs" />

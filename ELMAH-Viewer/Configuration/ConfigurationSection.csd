@@ -37,6 +37,11 @@
             <externalTypeMoniker name="/c2684573-4a8c-4361-b8c8-aaa072334f16/String" />
           </type>
         </attributeProperty>
+        <attributeProperty name="Provider" isRequired="true" isKey="false" isDefaultCollection="false" xmlName="provider" isReadOnly="false">
+          <type>
+            <externalTypeMoniker name="/c2684573-4a8c-4361-b8c8-aaa072334f16/String" />
+          </type>
+        </attributeProperty>
       </attributeProperties>
     </configurationElement>
     <configurationElement name="SourcesElement">

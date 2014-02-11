@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Media;
 using ELMAH_Viewer.Annotations;
@@ -8,6 +10,18 @@ namespace ELMAH_Viewer
 {
 	public static class Helpers
 	{
+		// http://stackoverflow.com/a/283917
+		public static string ApplicationPath
+		{
+			get
+			{
+				string codeBase = Assembly.GetExecutingAssembly().CodeBase;
+				UriBuilder uri = new UriBuilder(codeBase);
+				string path = Uri.UnescapeDataString(uri.Path);
+				return Path.GetDirectoryName(path);
+			}
+		}
+
 		public static IEnumerable<T> FindVisualChildren<T>([NotNull] this DependencyObject source) where T : DependencyObject
 		{
 			if (source == null)

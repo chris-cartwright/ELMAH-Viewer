@@ -38,6 +38,11 @@
 				<xs:documentation>The Name.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
+		<xs:attribute name="provider" use="required" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>The Provider.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
 	</xs:complexType>
 	<xs:complexType name="ELMAH_Viewer.Configuration.SourcesElementCT">
 		<xs:attribute name="location" use="required" type="xs:string">

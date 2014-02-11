@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using ELMAH_Viewer.Common;
-using System.ComponentModel.Composition;
 
 namespace ELMAH_Viewer.Sources.SqlServer
 {
-	[Export(typeof(ILogSource))]
-	[ExportMetadata("Name", "SQL Server")]
+	[ExportPlugin("SQL Server", "97d260c7-e5ad-4885-89ba-88abcc8673d4")]
 	public class SqlServer : ILogSource
 	{
 		public ISet<string> Applications { get; private set; }

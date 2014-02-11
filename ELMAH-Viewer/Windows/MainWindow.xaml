@@ -12,15 +12,20 @@
         Name="ElmahViewerWindow"
         Title="ELMAH-Viewer" Height="500" Width="980" MinHeight="500" MinWidth="980"
         d:DataContext="{d:DesignInstance elmahViewer:ViewModel}">
+    <Window.CommandBindings>
+        <CommandBinding Command="elmahViewer:ViewModel.Connect" Executed="CommandBinding_OnConnectExecuted"/>
+    </Window.CommandBindings>
     <Window.Resources>
         <converters:CollectionConverter x:Key="CollectionConverter"/>
     </Window.Resources>
     <Grid>
         <Menu Height="24" Margin="0" VerticalAlignment="Top">
-            <MenuItem Header="_Connect" ItemsSource="{Binding LogSources}" Click="Connect_OnClick">
+            <MenuItem Header="_Connect" ItemsSource="{Binding LogSources}">
                 <MenuItem.ItemContainerStyle>
-                    <Style>
-                        <Setter Property="MenuItem.Header" Value="{Binding Metadata.Name}" />
+                    <Style TargetType="{x:Type MenuItem}">
+                        <Setter Property="Header" Value="{Binding Metadata.Name}"/>
+                        <Setter Property="Command" Value="{Binding ElementName=ElmahViewerWindow, Path=DataContext.Connect}"/>
+                        <Setter Property="CommandParameter" Value="{Binding Metadata.Guid}"/>
                     </Style>
                 </MenuItem.ItemContainerStyle>
             </MenuItem>

@@ -2,9 +2,9 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using ELMAH_Viewer.Common;
 using ELMAH_Viewer.Configuration;
-using ELMAH_Viewer.Properties;
 
 namespace ELMAH_Viewer.Windows
 {
@@ -22,10 +22,14 @@ namespace ELMAH_Viewer.Windows
 			Focus();
 		}
 
-		private void Connect_OnClick(object sender, RoutedEventArgs e)
+		private void CommandBinding_OnConnectExecuted(object sender, ExecutedRoutedEventArgs e)
 		{
-			string header = (string)((MenuItem)e.OriginalSource).Header;
-			Lazy<ILogSource, ILogSourceMetadata> source = ViewModel.Instance.LogSources.First(s => s.Metadata.Name == header);
+			if (e.Parameter == null)
+			{
+				return;
+			}
+
+			Lazy<ILogSource, ILogSourceMetadata> source = ViewModel.Instance.LogSources.First(s => s.Metadata.Guid == e.Parameter.ToString());
 			IConnectionDialog dlg = source.Value.GetConnectionDialog();
 
 			ConnectWindow connect = new ConnectWindow()
@@ -53,6 +57,7 @@ namespace ELMAH_Viewer.Windows
 				SettingsSection.Instance.SavedConnections.Add(connection);
 			}
 
+			connection.Provider = source.Metadata.Guid;
 			connection.Content = dlg.Settings;
 			SettingsSection.Save();
 			MessageBox.Show("Created connection");

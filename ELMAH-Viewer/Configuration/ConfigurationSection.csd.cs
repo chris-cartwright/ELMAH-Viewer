@@ -398,6 +398,32 @@ namespace ELMAH_Viewer.Configuration
             }
         }
         #endregion
+        
+        #region Provider Property
+        /// <summary>
+        /// The XML name of the <see cref="Provider"/> property.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.1.0")]
+        internal const string ProviderPropertyName = "provider";
+        
+        /// <summary>
+        /// Gets or sets the Provider.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.1.0")]
+        [global::System.ComponentModel.DescriptionAttribute("The Provider.")]
+        [global::System.Configuration.ConfigurationPropertyAttribute(global::ELMAH_Viewer.Configuration.ConnectionElement.ProviderPropertyName, IsRequired=true, IsKey=false, IsDefaultCollection=false)]
+        public virtual string Provider
+        {
+            get
+            {
+                return ((string)(base[global::ELMAH_Viewer.Configuration.ConnectionElement.ProviderPropertyName]));
+            }
+            set
+            {
+                base[global::ELMAH_Viewer.Configuration.ConnectionElement.ProviderPropertyName] = value;
+            }
+        }
+        #endregion
     }
 }
 namespace ELMAH_Viewer.Configuration
