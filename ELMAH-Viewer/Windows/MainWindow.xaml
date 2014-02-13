@@ -13,19 +13,46 @@
         Title="ELMAH-Viewer" Height="500" Width="980" MinHeight="500" MinWidth="980"
         d:DataContext="{d:DesignInstance elmahViewer:ViewModel}">
     <Window.CommandBindings>
+        <CommandBinding Command="elmahViewer:ViewModel.CreateConnection" Executed="CommandBinding_OnCreateConnectionExecuted"/>
         <CommandBinding Command="elmahViewer:ViewModel.Connect" Executed="CommandBinding_OnConnectExecuted"/>
     </Window.CommandBindings>
     <Window.Resources>
         <converters:CollectionConverter x:Key="CollectionConverter"/>
+        <CollectionViewSource Source="{Binding ElementName=ElmahViewerWindow, Path=DataContext.SavedConnections}" x:Key="SavedConnections"/>
+        <Style x:Key="ConnectionStyle">
+            <Setter Property="MenuItem.Header" Value="{Binding Name}"/>
+            <Setter Property="MenuItem.Command" Value="{Binding ElementName=ElmahViewerWindow, Path=DataContext.Connect}"/>
+            <Setter Property="MenuItem.CommandParameter" Value="{Binding}"/>
+        </Style>
     </Window.Resources>
     <Grid>
         <Menu Height="24" Margin="0" VerticalAlignment="Top">
-            <MenuItem Header="_Connect" ItemsSource="{Binding LogSources}">
+            <MenuItem Header="_File">
+                <MenuItem Header="_Refresh"/>
+                <Separator/>
+                <MenuItem Header="_Exit"/>
+            </MenuItem>
+            <MenuItem Header="_Connect">
+                <MenuItem.ItemsSource>
+                    <CompositeCollection>
+                        <MenuItem Header="_New / Edit" ItemsSource="{Binding LogSources}" >
+                            <MenuItem.ItemContainerStyle>
+                                <Style TargetType="{x:Type MenuItem}">
+                                    <Setter Property="Header" Value="{Binding Metadata.Name}"/>
+                                    <Setter Property="Command" Value="{Binding ElementName=ElmahViewerWindow, Path=DataContext.CreateConnection}"/>
+                                    <Setter Property="CommandParameter" Value="{Binding Metadata.Guid}"/>
+                                </Style>
+                            </MenuItem.ItemContainerStyle>
+                        </MenuItem>
+                        <Separator/>
+                        <CollectionContainer Collection="{Binding Source={StaticResource SavedConnections}}"/>
+                    </CompositeCollection>
+                </MenuItem.ItemsSource>
                 <MenuItem.ItemContainerStyle>
                     <Style TargetType="{x:Type MenuItem}">
-                        <Setter Property="Header" Value="{Binding Metadata.Name}"/>
-                        <Setter Property="Command" Value="{Binding ElementName=ElmahViewerWindow, Path=DataContext.Connect}"/>
-                        <Setter Property="CommandParameter" Value="{Binding Metadata.Guid}"/>
+                        <Setter Property="Header" Value="{Binding Key}"/>
+                        <Setter Property="ItemsSource" Value="{Binding Value}"/>
+                        <Setter Property="ItemContainerStyle" Value="{StaticResource ConnectionStyle}"/>
                     </Style>
                 </MenuItem.ItemContainerStyle>
             </MenuItem>

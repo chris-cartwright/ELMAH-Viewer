@@ -15,6 +15,7 @@ namespace ELMAH_Viewer.Configuration
 		protected override void DeserializeElement(XmlReader reader, bool serializeCollectionKey)
 		{
 			Name = reader[NamePropertyName];
+			Provider = reader[ProviderPropertyName];
 			Content = reader.ReadElementContentAsString();
 		}
 
@@ -29,6 +30,10 @@ namespace ELMAH_Viewer.Configuration
 
 			writer.WriteStartAttribute(NamePropertyName);
 			writer.WriteString(Name);
+			writer.WriteEndAttribute();
+
+			writer.WriteStartAttribute(ProviderPropertyName);
+			writer.WriteString(Provider);
 			writer.WriteEndAttribute();
 
 			writer.WriteCData(Content);

@@ -22,7 +22,7 @@ namespace ELMAH_Viewer.Windows
 			Focus();
 		}
 
-		private void CommandBinding_OnConnectExecuted(object sender, ExecutedRoutedEventArgs e)
+		private void CommandBinding_OnCreateConnectionExecuted(object sender, ExecutedRoutedEventArgs e)
 		{
 			if (e.Parameter == null)
 			{
@@ -61,6 +61,11 @@ namespace ELMAH_Viewer.Windows
 			connection.Content = dlg.Settings;
 			SettingsSection.Save();
 			MessageBox.Show("Created connection");
+		}
+
+		private void CommandBinding_OnConnectExecuted(object sender, ExecutedRoutedEventArgs e)
+		{
+			bool temp = false;
 		}
 	}
 }

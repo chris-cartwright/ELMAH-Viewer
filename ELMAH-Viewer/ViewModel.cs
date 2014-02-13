@@ -1,12 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using ELMAH_Viewer.Common;
+using ELMAH_Viewer.Configuration;
 using PostSharp.Patterns.Model;
 
 namespace ELMAH_Viewer
@@ -14,8 +17,16 @@ namespace ELMAH_Viewer
 	[NotifyPropertyChanged]
 	internal class ViewModel
 	{
+		[NotifyPropertyChanged]
+		public class Connection
+		{
+			public string Name { get; set; }
+			public string Guid { get; set; }
+		}
+
 		private static readonly Lazy<ViewModel> _instance;
 
+		public static RoutedUICommand CreateConnection { get; private set; }
 		public static RoutedUICommand Connect { get; private set; }
 
 		[IgnoreAutoChangeNotification]
@@ -26,14 +37,15 @@ namespace ELMAH_Viewer
 
 		static ViewModel()
 		{
-			Connect = new RoutedUICommand("Connect to source", "ConnectCommand", typeof(Commands));
+			CreateConnection = new RoutedUICommand("Create new connection", "CreateConnectionCommand", typeof(ViewModel));
+			Connect = new RoutedUICommand("Connect to source", "ConnectCommand", typeof(ViewModel));
 
 			_instance = new Lazy<ViewModel>(() => new ViewModel(), LazyThreadSafetyMode.PublicationOnly);
 		}
 
 		private ViewModel()
 		{
-			string path = Path.Combine(Helpers.ApplicationPath, Configuration.SettingsSection.Instance.Sources.Location);
+			string path = Path.Combine(Helpers.ApplicationPath, SettingsSection.Instance.Sources.Location);
 			AggregateCatalog catalog = new AggregateCatalog();
 			catalog.Catalogs.Add(new DirectoryCatalog(path));
 
@@ -53,6 +65,25 @@ namespace ELMAH_Viewer
 				Application.Current.Shutdown();
 			}
 
+			SavedConnections = new Dictionary<string, List<Connection>>();
+			foreach (ConnectionElement conn in SettingsSection.Instance.SavedConnections)
+			{
+				var provider = LogSources.FirstOrDefault(ls => ls.Metadata.Guid == conn.Provider);
+				if (provider == null)
+				{
+					continue;
+				}
+
+				string providerName = provider.Metadata.Name;
+
+				if (!SavedConnections.ContainsKey(providerName))
+				{
+					SavedConnections[providerName] = new List<Connection>();
+				}
+
+				SavedConnections[providerName].Add(new Connection() { Guid = conn.Provider, Name = conn.Name });
+			}
+
 			StartDateTime = DateTime.Now - new TimeSpan(7, 0, 0, 0, 0);
 			EndDateTime = DateTime.Now;
 
@@ -70,6 +101,8 @@ namespace ELMAH_Viewer
 
 		[ImportMany(typeof(ILogSource))]
 		public Lazy<ILogSource, ILogSourceMetadata>[] LogSources { get; set; }
+
+		public Dictionary<string, List<Connection>> SavedConnections { get; set; }
 
 		public DateTime StartDateTime { get; set; }
 		public DateTime EndDateTime { get; set; }
