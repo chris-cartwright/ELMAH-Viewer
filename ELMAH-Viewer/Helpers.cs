@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Media;
@@ -42,6 +43,30 @@ namespace ELMAH_Viewer
 					yield return item;
 				}
 			}
+		}
+
+		public static T KeyLookup<T>(this IEnumerable<T> source, Func<T, bool> predicate)
+		{
+			T ret = source.FirstOrDefault(predicate);
+
+			if (typeof(T).IsValueType)
+			{
+				if (default(T).Equals(ret))
+				{
+					throw new KeyNotFoundException();
+				}
+			}
+			else
+			{
+				// The outer if should prevent values types from being compared against null
+				// ReSharper disable once CompareNonConstrainedGenericWithNull
+				if (ret == null)
+				{
+					throw new KeyNotFoundException();
+				}
+			}
+
+			return ret;
 		}
 	}
 }

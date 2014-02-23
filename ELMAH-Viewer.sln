@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ELMAH-Viewer", "ELMAH-Viewer\ELMAH-Viewer.csproj", "{1B7D1D5F-4EC7-42FE-9445-29FAAAFE2218}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ELMAH-Viewer.Common", "ELMAH-Viewer.Common\ELMAH-Viewer.Common.csproj", "{AB5125F0-FD7E-419A-B8CB-7FF0CF70E673}"

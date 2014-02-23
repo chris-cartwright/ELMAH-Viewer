@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using ELMAH_Viewer.Common;
 using ELMAH_Viewer.Configuration;
+using log4net;
 
 namespace ELMAH_Viewer.Windows
 {
@@ -13,6 +14,8 @@ namespace ELMAH_Viewer.Windows
 	/// </summary>
 	public partial class MainWindow
 	{
+		private static readonly ILog Logger = LogManager.GetLogger(typeof(MainWindow));
+
 		public MainWindow()
 		{
 			DataContext = ViewModel.Instance;
@@ -65,7 +68,21 @@ namespace ELMAH_Viewer.Windows
 
 		private void CommandBinding_OnConnectExecuted(object sender, ExecutedRoutedEventArgs e)
 		{
-			bool temp = false;
+			ViewModel.Connection conn = e.Parameter as ViewModel.Connection;
+			Debug.Assert(conn != null);
+
+			Lazy<ILogSource, ILogSourceMetadata> source = ViewModel.Instance.LogSources[conn.Guid];
+
+			try
+			{
+				source.Value.Connect(SettingsSection.Instance.SavedConnections[conn.Guid, conn.Name]);
+				ViewModel.Instance.CurrentSource = source;
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(this, ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+				Logger.Error(ex);
+			}
 		}
 	}
 }

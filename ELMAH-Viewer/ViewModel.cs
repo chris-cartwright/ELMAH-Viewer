@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.IO;
-using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Windows.Input;
@@ -25,6 +24,7 @@ namespace ELMAH_Viewer
 		}
 
 		private static readonly Lazy<ViewModel> _instance;
+		private Lazy<ILogSource, ILogSourceMetadata> _currentSource;
 
 		public static RoutedUICommand CreateConnection { get; private set; }
 		public static RoutedUICommand Connect { get; private set; }
@@ -43,6 +43,35 @@ namespace ELMAH_Viewer
 			_instance = new Lazy<ViewModel>(() => new ViewModel(), LazyThreadSafetyMode.PublicationOnly);
 		}
 
+		[ImportMany(typeof(ILogSource))]
+		public LogSourceCollection LogSources { get; set; }
+
+		public Lazy<ILogSource, ILogSourceMetadata> CurrentSource
+		{
+			get { return _currentSource; }
+			set
+			{
+				_currentSource = value;
+				LoadSource();
+			}
+		}
+
+		public Dictionary<string, List<Connection>> SavedConnections { get; set; }
+
+		public DateTime StartDateTime { get; set; }
+		public DateTime EndDateTime { get; set; }
+
+		public ObservableCollection<string> Applications { get; set; }
+		public ObservableCollection<string> Hosts { get; set; }
+		public ObservableCollection<string> Types { get; set; }
+		public ObservableCollection<string> Sources { get; set; }
+		public ObservableCollection<string> Users { get; set; }
+		public ObservableCollection<int> StatusCodes { get; set; }
+
+		public ObservableCollection<ISimpleErrorLog> ErrorLogs { get; set; }
+
+		public ErrorLog ErrorLog { get; set; }
+
 		private ViewModel()
 		{
 			string path = Path.Combine(Helpers.ApplicationPath, SettingsSection.Instance.Sources.Location);
@@ -54,7 +83,7 @@ namespace ELMAH_Viewer
 			try
 			{
 				container.ComposeParts(this);
-				if (LogSources.Length == 0)
+				if (LogSources.Count == 0)
 				{
 					throw new ApplicationException("Could not find any log sources.");
 				}
@@ -68,12 +97,7 @@ namespace ELMAH_Viewer
 			SavedConnections = new Dictionary<string, List<Connection>>();
 			foreach (ConnectionElement conn in SettingsSection.Instance.SavedConnections)
 			{
-				var provider = LogSources.FirstOrDefault(ls => ls.Metadata.Guid == conn.Provider);
-				if (provider == null)
-				{
-					continue;
-				}
-
+				Lazy<ILogSource, ILogSourceMetadata> provider = LogSources[conn.Provider];
 				string providerName = provider.Metadata.Name;
 
 				if (!SavedConnections.ContainsKey(providerName))
@@ -99,23 +123,9 @@ namespace ELMAH_Viewer
 			ErrorLog = new ErrorLog();
 		}
 
-		[ImportMany(typeof(ILogSource))]
-		public Lazy<ILogSource, ILogSourceMetadata>[] LogSources { get; set; }
-
-		public Dictionary<string, List<Connection>> SavedConnections { get; set; }
-
-		public DateTime StartDateTime { get; set; }
-		public DateTime EndDateTime { get; set; }
-
-		public ObservableCollection<string> Applications { get; set; }
-		public ObservableCollection<string> Hosts { get; set; }
-		public ObservableCollection<string> Types { get; set; }
-		public ObservableCollection<string> Sources { get; set; }
-		public ObservableCollection<string> Users { get; set; }
-		public ObservableCollection<int> StatusCodes { get; set; }
-
-		public ObservableCollection<ISimpleErrorLog> ErrorLogs { get; set; }
-
-		public ErrorLog ErrorLog { get; set; }
+		public void LoadSource()
+		{
+			
+		}
 	}
 }
