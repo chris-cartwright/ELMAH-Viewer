@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Commands.cs" />
     <Compile Include="Enumerations.cs" />
+    <Compile Include="Helpers.cs" />
     <Compile Include="IConnectionDialog.cs" />
     <Compile Include="IErrorLog.cs" />
     <Compile Include="ILogSourceMetadata.cs" />

@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using ELMAH_Viewer.Common;
-using log4net;
+using PetaPoco;
 
 namespace ELMAH_Viewer.Sources.SqlServer
 {
 	[ExportPlugin("SQL Server", "97d260c7-e5ad-4885-89ba-88abcc8673d4")]
 	public class SqlServer : ILogSource
 	{
-		private static readonly ILog Logger = LogManager.GetLogger(typeof(SqlServer));
+		private Database _connection;
 
 		public ISet<string> Applications { get; private set; }
 		public ISet<string> Hosts { get; private set; }
@@ -17,6 +17,16 @@ namespace ELMAH_Viewer.Sources.SqlServer
 		public ISet<string> Users { get; private set; }
 		public ISet<int> StatusCodes { get; private set; }
 
+		public SqlServer()
+		{
+			Applications = new HashSet<string>();
+			Hosts = new HashSet<string>();
+			Types = new HashSet<string>();
+			Sources = new HashSet<string>();
+			Users = new HashSet<string>();
+			StatusCodes = new HashSet<int>();
+		}
+
 		public IConnectionDialog GetConnectionDialog()
 		{
 			return new Connect();
@@ -24,8 +34,14 @@ namespace ELMAH_Viewer.Sources.SqlServer
 
 		public void Connect(string settings)
 		{
-			Logger.Info(String.Format("Connecting with settings: {0}", settings));
-			throw new NotImplementedException();
+			_connection = new Database(settings, "System.Data.SqlClient");
+
+			Applications.AddRange(_connection.Fetch<string>("SELECT DISTINCT Application FROM ELMAH_Error"));
+			Hosts.AddRange(_connection.Fetch<string>("SELECT DISTINCT Host FROM ELMAH_Error"));
+			Types.AddRange(_connection.Fetch<string>("SELECT DISTINCT Type FROM ELMAH_Error"));
+			Sources.AddRange(_connection.Fetch<string>("SELECT DISTINCT Source FROM ELMAH_Error"));
+			Users.AddRange(_connection.Fetch<string>("SELECT DISTINCT User FROM ELMAH_Error"));
+			StatusCodes.AddRange(_connection.Fetch<int>("SELECT DISTINCT StatusCode FROM ELMAH_Error"));
 		}
 
 		public ISimpleErrorLog[] GetLogs(int count, int offset)

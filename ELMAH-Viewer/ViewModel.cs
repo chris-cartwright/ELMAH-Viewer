@@ -125,7 +125,23 @@ namespace ELMAH_Viewer
 
 		public void LoadSource()
 		{
-			
+			Applications.Clear();
+			Applications.AddRange(_currentSource.Value.Applications);
+
+			Hosts.Clear();
+			Hosts.AddRange(_currentSource.Value.Hosts);
+
+			Types.Clear();
+			Types.AddRange(_currentSource.Value.Types);
+
+			Sources.Clear();
+			Sources.AddRange(_currentSource.Value.Sources);
+
+			Users.Clear();
+			Users.AddRange(_currentSource.Value.Users);
+
+			StatusCodes.Clear();
+			StatusCodes.AddRange(_currentSource.Value.StatusCodes);
 		}
 	}
 }

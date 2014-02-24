@@ -75,7 +75,9 @@ namespace ELMAH_Viewer.Windows
 
 			try
 			{
-				source.Value.Connect(SettingsSection.Instance.SavedConnections[conn.Guid, conn.Name]);
+				string settings = SettingsSection.Instance.SavedConnections[conn.Guid, conn.Name];
+				Logger.Info(String.Format("Connecting to {0} using connection {1} with settings: {2}", conn.Guid, conn.Name, settings));
+				source.Value.Connect(settings);
 				ViewModel.Instance.CurrentSource = source;
 			}
 			catch (Exception ex)
