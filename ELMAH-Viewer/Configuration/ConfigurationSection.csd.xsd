@@ -21,6 +21,11 @@
 					<xs:documentation>The Sources.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
+			<xs:element minOccurs="1" name="results" type="tns:ELMAH_Viewer.Configuration.ResultsElementCT">
+				<xs:annotation>
+					<xs:documentation>The Results.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 		</xs:choice>
 	</xs:complexType>
 	<xs:complexType name="ELMAH_Viewer.Configuration.SavedConnectionsCollectionCT">
@@ -48,6 +53,13 @@
 		<xs:attribute name="location" use="required" type="xs:string">
 			<xs:annotation>
 				<xs:documentation>The Location.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="ELMAH_Viewer.Configuration.ResultsElementCT">
+		<xs:attribute name="resultsPerPage" use="required" type="xs:int">
+			<xs:annotation>
+				<xs:documentation>The ResultsPerPage.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 	</xs:complexType>

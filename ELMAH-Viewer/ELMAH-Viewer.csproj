@@ -103,6 +103,9 @@
     <Compile Include="Configuration\ConnectionElement.cs" />
     <Compile Include="Configuration\SavedConnectionsCollection.cs" />
     <Compile Include="Configuration\SettingsSection.cs" />
+    <Compile Include="Controls\NumericSpinner.xaml.cs">
+      <DependentUpon>NumericSpinner.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\SearchItem.xaml.cs">
       <DependentUpon>SearchItem.xaml</DependentUpon>
     </Compile>
@@ -110,6 +113,7 @@
     <Compile Include="Converters\ListContainsElementsConverter.cs" />
     <Compile Include="Converters\ProxyConverter.cs" />
     <Compile Include="ErrorLog.cs" />
+    <Compile Include="ErrorLogCollection.cs" />
     <Compile Include="Exceptions.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="LogSourceCollection.cs" />
@@ -117,6 +121,10 @@
     <Compile Include="Settings.cs" />
     <Compile Include="SimpleErrorLog.cs" />
     <Compile Include="ViewModel.cs" />
+    <Page Include="Controls\NumericSpinner.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\SearchItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

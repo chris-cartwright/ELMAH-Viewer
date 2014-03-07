@@ -32,10 +32,8 @@ namespace ELMAH_Viewer.Sources.SqlServer
 			return new Connect();
 		}
 
-		public void Connect(string settings)
+		public void LoadSearchValues()
 		{
-			_connection = new Database(settings, "System.Data.SqlClient");
-
 			Applications.AddRange(_connection.Fetch<string>("SELECT DISTINCT Application FROM ELMAH_Error"));
 			Hosts.AddRange(_connection.Fetch<string>("SELECT DISTINCT Host FROM ELMAH_Error"));
 			Types.AddRange(_connection.Fetch<string>("SELECT DISTINCT Type FROM ELMAH_Error"));
@@ -44,14 +42,19 @@ namespace ELMAH_Viewer.Sources.SqlServer
 			StatusCodes.AddRange(_connection.Fetch<int>("SELECT DISTINCT StatusCode FROM ELMAH_Error"));
 		}
 
-		public ISimpleErrorLog[] GetLogs(int count, int offset)
+		public IResult GetLogs(int resultsPage)
+		{
+			return new ResultLoader(_connection, resultsPage);
+		}
+
+		public IResult GetLogs(int resultsPage, ISearchParameters parameters)
 		{
 			throw new NotImplementedException();
 		}
 
-		public ISimpleErrorLog[] SearchLogs(int count, int offset, ISearchParameters parameters)
+		public void Connect(string settings)
 		{
-			throw new NotImplementedException();
+			_connection = new Database(settings, "System.Data.SqlClient");
 		}
 	}
 }

@@ -6,6 +6,7 @@ using System.Windows.Input;
 using ELMAH_Viewer.Common;
 using ELMAH_Viewer.Configuration;
 using log4net;
+using MessageBox = System.Windows.MessageBox;
 
 namespace ELMAH_Viewer.Windows
 {

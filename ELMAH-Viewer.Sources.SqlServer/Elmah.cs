@@ -1,8 +1,9 @@
 ﻿using System;
+using ELMAH_Viewer.Common;
 
 namespace ELMAH_Viewer.Sources.SqlServer
 {
-	internal class Elmah
+	public class Elmah : IErrorLog
 	{
 		public Guid ErrorId { get; set; }
 		public string Application { get; set; }

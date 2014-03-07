@@ -23,6 +23,11 @@
             <configurationElementMoniker name="/c2684573-4a8c-4361-b8c8-aaa072334f16/SourcesElement" />
           </type>
         </elementProperty>
+        <elementProperty name="Results" isRequired="true" isKey="false" isDefaultCollection="false" xmlName="results" isReadOnly="false">
+          <type>
+            <configurationElementMoniker name="/c2684573-4a8c-4361-b8c8-aaa072334f16/ResultsElement" />
+          </type>
+        </elementProperty>
       </elementProperties>
     </configurationSection>
     <configurationElementCollection name="SavedConnectionsCollection" xmlItemName="connection" codeGenOptions="Indexer, AddMethod, RemoveMethod, GetItemMethods, ICollection">
@@ -49,6 +54,15 @@
         <attributeProperty name="Location" isRequired="true" isKey="false" isDefaultCollection="false" xmlName="location" isReadOnly="false">
           <type>
             <externalTypeMoniker name="/c2684573-4a8c-4361-b8c8-aaa072334f16/String" />
+          </type>
+        </attributeProperty>
+      </attributeProperties>
+    </configurationElement>
+    <configurationElement name="ResultsElement">
+      <attributeProperties>
+        <attributeProperty name="ResultsPerPage" isRequired="true" isKey="false" isDefaultCollection="false" xmlName="resultsPerPage" isReadOnly="false">
+          <type>
+            <externalTypeMoniker name="/c2684573-4a8c-4361-b8c8-aaa072334f16/Int32" />
           </type>
         </attributeProperty>
       </attributeProperties>

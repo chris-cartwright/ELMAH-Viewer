@@ -43,6 +43,8 @@ namespace ELMAH_Viewer
 			_instance = new Lazy<ViewModel>(() => new ViewModel(), LazyThreadSafetyMode.PublicationOnly);
 		}
 
+		private IResult _logs;
+
 		[ImportMany(typeof(ILogSource))]
 		public LogSourceCollection LogSources { get; set; }
 
@@ -68,7 +70,7 @@ namespace ELMAH_Viewer
 		public ObservableCollection<string> Users { get; set; }
 		public ObservableCollection<int> StatusCodes { get; set; }
 
-		public ObservableCollection<ISimpleErrorLog> ErrorLogs { get; set; }
+		public ErrorLogCollection ErrorLogs { get; set; }
 
 		public ErrorLog ErrorLog { get; set; }
 
@@ -111,7 +113,7 @@ namespace ELMAH_Viewer
 			StartDateTime = DateTime.Now - new TimeSpan(7, 0, 0, 0, 0);
 			EndDateTime = DateTime.Now;
 
-			ErrorLogs = new ObservableCollection<ISimpleErrorLog>();
+			ErrorLogs = new ErrorLogCollection();
 
 			Applications = new ObservableCollection<string>();
 			Hosts = new ObservableCollection<string>();
@@ -125,6 +127,8 @@ namespace ELMAH_Viewer
 
 		public void LoadSource()
 		{
+			_currentSource.Value.LoadSearchValues();
+
 			Applications.Clear();
 			Applications.AddRange(_currentSource.Value.Applications);
 
@@ -142,6 +146,14 @@ namespace ELMAH_Viewer
 
 			StatusCodes.Clear();
 			StatusCodes.AddRange(_currentSource.Value.StatusCodes);
+
+			_logs = _currentSource.Value.GetLogs(SettingsSection.Instance.Results.ResultsPerPage);
+
+			ErrorLogs.Clear();
+			if (_logs.MoveNext())
+			{
+				ErrorLogs.AddRange(_logs.Current.Results);
+			}
 		}
 	}
 }
