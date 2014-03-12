@@ -4,11 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:controls="clr-namespace:ELMAH_Viewer.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="24" d:DesignWidth="50">
+             d:DesignHeight="24" d:DesignWidth="50" d:DataContext="{d:DesignInstance controls:NumericSpinner}">
     <DockPanel>
         <xctk:ButtonSpinner Spin="Spinner_OnSpin">
-            <TextBlock>0</TextBlock>
+            <TextBlock Text="{Binding Value}"/>
         </xctk:ButtonSpinner>
     </DockPanel>
 </UserControl>

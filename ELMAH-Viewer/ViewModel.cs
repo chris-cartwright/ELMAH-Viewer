@@ -125,7 +125,7 @@ namespace ELMAH_Viewer
 			ErrorLog = new ErrorLog();
 		}
 
-		public void LoadSource()
+		public async void LoadSource()
 		{
 			_currentSource.Value.LoadSearchValues();
 
@@ -150,9 +150,12 @@ namespace ELMAH_Viewer
 			_logs = _currentSource.Value.GetLogs(SettingsSection.Instance.Results.ResultsPerPage);
 
 			ErrorLogs.Clear();
-			if (_logs.MoveNext())
+			IResultPage page = await _logs.GetPageAsync(1);
+			if (page.HasItems)
 			{
-				ErrorLogs.AddRange(_logs.Current.Results);
+				ErrorLogs.CurrentPage = page.Page;
+				ErrorLogs.TotalLogs = _logs.TotalResults;
+				ErrorLogs.AddRange(page.Items);
 			}
 		}
 	}

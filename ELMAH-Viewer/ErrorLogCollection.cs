@@ -1,7 +1,9 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using ELMAH_Viewer.Annotations;
 using ELMAH_Viewer.Common;
+using ELMAH_Viewer.Configuration;
 using PostSharp.Patterns.Model;
 
 namespace ELMAH_Viewer
@@ -9,9 +11,17 @@ namespace ELMAH_Viewer
 	[NotifyPropertyChanged]
 	public class ErrorLogCollection : ObservableCollection<ISimpleErrorLog>
 	{
-		public int TotalLogs { get; private set; }
-		public int TotalPages { get; private set; }
-		public int CurrentPage { get; private set; }
+		public long TotalLogs { get; set; }
+		public int CurrentPage { get; set; }
+
+		public int TotalPages
+		{
+			get
+			{
+				Depends.On(TotalLogs);
+				return (int)Math.Ceiling((double)TotalLogs / SettingsSection.Instance.Results.ResultsPerPage);
+			}
+		}
 
 		[UsedImplicitly]
 		private void OnPropertyChanged(string propertyName)

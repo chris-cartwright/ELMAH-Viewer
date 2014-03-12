@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System.Threading.Tasks;
 
 namespace ELMAH_Viewer.Common
 {
-	public interface IResult : IEnumerator<IResultPage>
+	public interface IResult
 	{
-		int TotalResults { get; }
+		int ResultsPerPage { get; }
+		long TotalResults { get; }
+		Task<IResultPage> GetPageAsync(int page);
 	}
 }

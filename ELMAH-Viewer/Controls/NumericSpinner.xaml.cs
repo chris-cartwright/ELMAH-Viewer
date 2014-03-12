@@ -13,6 +13,7 @@ namespace ELMAH_Viewer.Controls
 	{
 		public static readonly DependencyProperty MinValueProperty;
 		public static readonly DependencyProperty MaxValueProperty;
+		public static readonly DependencyProperty ValueProperty;
 
 		static NumericSpinner()
 		{
@@ -20,6 +21,9 @@ namespace ELMAH_Viewer.Controls
 				new FrameworkPropertyMetadata() { BindsTwoWayByDefault = true });
 
 			MaxValueProperty = DependencyProperty.RegisterAttached("MaxValue", typeof(long), typeof(NumericSpinner),
+				new FrameworkPropertyMetadata() { BindsTwoWayByDefault = true });
+
+			ValueProperty = DependencyProperty.RegisterAttached("Value", typeof(long), typeof(NumericSpinner),
 				new FrameworkPropertyMetadata() { BindsTwoWayByDefault = true });
 		}
 
@@ -35,11 +39,20 @@ namespace ELMAH_Viewer.Controls
 			set { SetValue(MaxValueProperty, value); }
 		}
 
+		public long Value
+		{
+			get { return (long)GetValue(ValueProperty); }
+			set { SetValue(ValueProperty, value); }
+		}
+
 		public NumericSpinner()
 		{
 			MinValue = 0;
 			MaxValue = 100;
+			Value = 0;
 			InitializeComponent();
+
+			DataContext = this;
 		}
 
 		private void Spinner_OnSpin(object sender, SpinEventArgs e)

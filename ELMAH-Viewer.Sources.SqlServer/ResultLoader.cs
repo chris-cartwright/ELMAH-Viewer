@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System.Threading.Tasks;
 using ELMAH_Viewer.Common;
 using PetaPoco;
 
@@ -8,45 +8,30 @@ namespace ELMAH_Viewer.Sources.SqlServer
 	{
 		private readonly Database _connection;
 		private readonly string _query;
-		private int _page;
 
 		public int ResultsPerPage { get; private set; }
-		public IResultPage Current { get; private set; }
-
-		object IEnumerator.Current
-		{
-			get { return Current; }
-		}
-
-		public int TotalResults { get; private set; }
+		public long TotalResults { get; private set; }
 
 		public ResultLoader(Database connection, int resultsPage)
 		{
 			_connection = connection;
 			ResultsPerPage = resultsPage;
 			_query = "SELECT * FROM ELMAH_Error ORDER BY TimeUtc DESC";
-			_page = 1;
 		}
 
-		public void Dispose() { }
-
-		public bool MoveNext()
+		public async Task<IResultPage> GetPageAsync(int page)
 		{
-			Page<Elmah> next = _connection.Page<Elmah>(_page, ResultsPerPage, _query);
-			_page++;
-			if (next.Items.Count == 0)
+			return await Task.Factory.StartNew<IResultPage>(() =>
 			{
-				return false;
-			}
+				Page<Elmah> next = _connection.Page<Elmah>(page, ResultsPerPage, _query);
+				if (next.Items.Count == 0)
+				{
+					return new ResultPage();
+				}
 
-			Current = new ResultPage(next);
-			return true;
-		}
-
-		public void Reset()
-		{
-			_page = 0;
-			MoveNext();
+				TotalResults = next.TotalItems;
+				return new ResultPage(next);
+			});
 		}
 	}
 }
