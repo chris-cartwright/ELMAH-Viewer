@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ELMAH_Viewer.Common
 {
@@ -17,6 +19,7 @@ namespace ELMAH_Viewer.Common
 		void Connect(string settings);
 		IConnectionDialog GetConnectionDialog();
 		void LoadSearchValues();
+		Task<IErrorLog> GetLog(Guid errorId);
 		IResult GetLogs(int resultsPage);
 		IResult GetLogs(int resultsPage, ISearchParameters parameters);
 	}

@@ -37,6 +37,15 @@ namespace ELMAH_Viewer
 			get { return _instance.Value; }
 		}
 
+		public static Visibility IsDebug
+		{
+#if DEBUG
+			get { return Visibility.Visible; }
+#else
+			get { return Visibility.Collapsed; }
+#endif
+		}
+
 		static ViewModel()
 		{
 			CreateConnection = new RoutedUICommand("Create new connection", "CreateConnectionCommand", typeof(ViewModel));
@@ -60,6 +69,19 @@ namespace ELMAH_Viewer
 			}
 		}
 
+		public ISimpleErrorLog SelectedLog
+		{
+			set
+			{
+				if (value == null)
+				{
+					return;
+				}
+
+				LoadLog(value.ErrorId);
+			}
+		}
+
 		public Dictionary<string, List<Connection>> SavedConnections { get; set; }
 
 		public DateTime StartDateTime { get; set; }
@@ -74,6 +96,12 @@ namespace ELMAH_Viewer
 
 		public ErrorLogCollection ErrorLogs { get; set; }
 		public ErrorLog ErrorLog { get; set; }
+
+		private async void LoadLog(Guid errorId)
+		{
+			IErrorLog log = await _currentSource.Value.GetLog(errorId);
+			ErrorLog = new ErrorLog(log);
+		}
 
 		private void ErrorLogsPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{

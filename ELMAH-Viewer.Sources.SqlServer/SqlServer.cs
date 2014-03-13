@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using ELMAH_Viewer.Common;
 using PetaPoco;
 
@@ -40,6 +41,11 @@ namespace ELMAH_Viewer.Sources.SqlServer
 			Sources.AddRange(_connection.Fetch<string>("SELECT DISTINCT Source FROM ELMAH_Error"));
 			Users.AddRange(_connection.Fetch<string>("SELECT DISTINCT User FROM ELMAH_Error"));
 			StatusCodes.AddRange(_connection.Fetch<int>("SELECT DISTINCT StatusCode FROM ELMAH_Error"));
+		}
+
+		public async Task<IErrorLog> GetLog(Guid errorId)
+		{
+			return await Task.Factory.StartNew<IErrorLog>(() => _connection.SingleOrDefault<Elmah>("SELECT * FROM ELMAH_Error WHERE ErrorId=@0", errorId));
 		}
 
 		public IResult GetLogs(int resultsPage)

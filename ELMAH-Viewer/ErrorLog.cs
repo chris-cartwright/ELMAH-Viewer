@@ -33,7 +33,7 @@ namespace ELMAH_Viewer
 			{
 				_allXml = value;
 
-				Stream xsd = Assembly.GetExecutingAssembly().GetManifestResourceStream("ErrorDetails.xsd");
+				Stream xsd = Assembly.GetExecutingAssembly().GetManifestResourceStream("ELMAH_Viewer.Misc.ErrorDetails.xsd");
 				Debug.Assert(xsd != null, "XSD not properly embedded.");
 
 				List<XmlSchemaException> errors = new List<XmlSchemaException>();

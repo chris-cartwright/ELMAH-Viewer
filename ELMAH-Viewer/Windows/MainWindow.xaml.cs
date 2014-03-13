@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using ELMAH_Viewer.Common;
 using ELMAH_Viewer.Configuration;
@@ -78,7 +79,8 @@ namespace ELMAH_Viewer.Windows
 			try
 			{
 				string settings = SettingsSection.Instance.SavedConnections[conn.Guid, conn.Name];
-				Logger.Info(String.Format("Connecting to {0} using connection {1} with settings: {2}", conn.Guid, conn.Name, settings));
+				Logger.Info(String.Format("Connecting to {0} using connection {1} with settings: {2}", conn.Guid, conn.Name,
+					settings));
 				source.Value.Connect(settings);
 				ViewModel.Instance.CurrentSource = source;
 			}
@@ -87,6 +89,11 @@ namespace ELMAH_Viewer.Windows
 				MessageBox.Show(this, ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 				Logger.Error(ex);
 			}
+		}
+
+		private void Debug_OnClick(object sender, RoutedEventArgs e)
+		{
+			Debugger.Break();
 		}
 	}
 }
