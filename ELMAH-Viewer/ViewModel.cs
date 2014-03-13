@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.IO;
@@ -9,6 +10,7 @@ using System.Windows;
 using System.Windows.Input;
 using ELMAH_Viewer.Common;
 using ELMAH_Viewer.Configuration;
+using PostSharp;
 using PostSharp.Patterns.Model;
 
 namespace ELMAH_Viewer
@@ -71,8 +73,35 @@ namespace ELMAH_Viewer
 		public ObservableCollection<int> StatusCodes { get; set; }
 
 		public ErrorLogCollection ErrorLogs { get; set; }
-
 		public ErrorLog ErrorLog { get; set; }
+
+		private void ErrorLogsPropertyChanged(object sender, PropertyChangedEventArgs e)
+		{
+			if (e.PropertyName != "CurrentPage")
+			{
+				return;
+			}
+
+			LoadPage(ErrorLogs.CurrentPage);
+		}
+
+		private async void LoadPage(int page)
+		{
+			if (_logs == null)
+			{
+				return;
+			}
+
+			ErrorLogs.Clear();
+
+			IResultPage p = await _logs.GetPageAsync(page);
+			if (p.HasItems)
+			{
+				ErrorLogs.CurrentPage = p.Page;
+				ErrorLogs.TotalLogs = _logs.TotalResults;
+				ErrorLogs.AddRange(p.Items);
+			}
+		}
 
 		private ViewModel()
 		{
@@ -114,6 +143,8 @@ namespace ELMAH_Viewer
 			EndDateTime = DateTime.Now;
 
 			ErrorLogs = new ErrorLogCollection();
+			INotifyPropertyChanged el = Post.Cast<ErrorLogCollection, INotifyPropertyChanged>(ErrorLogs);
+			el.PropertyChanged += ErrorLogsPropertyChanged;
 
 			Applications = new ObservableCollection<string>();
 			Hosts = new ObservableCollection<string>();
@@ -125,7 +156,7 @@ namespace ELMAH_Viewer
 			ErrorLog = new ErrorLog();
 		}
 
-		public async void LoadSource()
+		public void LoadSource()
 		{
 			_currentSource.Value.LoadSearchValues();
 
@@ -149,14 +180,7 @@ namespace ELMAH_Viewer
 
 			_logs = _currentSource.Value.GetLogs(SettingsSection.Instance.Results.ResultsPerPage);
 
-			ErrorLogs.Clear();
-			IResultPage page = await _logs.GetPageAsync(1);
-			if (page.HasItems)
-			{
-				ErrorLogs.CurrentPage = page.Page;
-				ErrorLogs.TotalLogs = _logs.TotalResults;
-				ErrorLogs.AddRange(page.Items);
-			}
+			ErrorLogs.CurrentPage = 1;
 		}
 	}
 }

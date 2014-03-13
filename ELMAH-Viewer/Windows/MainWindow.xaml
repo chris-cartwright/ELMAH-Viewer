@@ -146,7 +146,7 @@
                                                     </Style>
                                                 </StackPanel.Resources>
                                                 <TextBlock>Page</TextBlock>
-                                                <controls:NumericSpinner Value="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLogs.CurrentPage}"  MaxValue="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLogs.TotalPages, Mode=OneWay}"/>
+                                                <controls:NumericSpinner MinValue="1"  Value="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLogs.CurrentPage}"  MaxValue="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLogs.TotalPages, Mode=OneWay}"/>
                                                 <TextBlock>of</TextBlock>
                                                 <TextBlock Text="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLogs.TotalPages}"/>
                                             </StackPanel>

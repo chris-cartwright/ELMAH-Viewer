@@ -57,23 +57,16 @@ namespace ELMAH_Viewer.Controls
 
 		private void Spinner_OnSpin(object sender, SpinEventArgs e)
 		{
-			ButtonSpinner spinner = (ButtonSpinner)sender;
-			TextBlock textBlock = (TextBlock)spinner.Content;
-
-			long value = String.IsNullOrEmpty(textBlock.Text) ? 0 : Convert.ToInt64(textBlock.Text);
-
 			if (e.Direction == SpinDirection.Increase)
 			{
-				value++;
-				value = value > MaxValue ? MaxValue : value;
+				Value++;
+				Value = Value > MaxValue ? MaxValue : Value;
 			}
 			else
 			{
-				value--;
-				value = value < MinValue ? MinValue : value;
+				Value--;
+				Value = Value < MinValue ? MinValue : Value;
 			}
-
-			textBlock.Text = value.ToString(CultureInfo.InvariantCulture);
 		}
 	}
 }
