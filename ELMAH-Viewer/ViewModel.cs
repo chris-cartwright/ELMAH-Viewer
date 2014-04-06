@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Windows.Input;
@@ -87,12 +88,12 @@ namespace ELMAH_Viewer
 		public DateTime StartDateTime { get; set; }
 		public DateTime EndDateTime { get; set; }
 
-		public ObservableCollection<string> Applications { get; set; }
-		public ObservableCollection<string> Hosts { get; set; }
-		public ObservableCollection<string> Types { get; set; }
-		public ObservableCollection<string> Sources { get; set; }
-		public ObservableCollection<string> Users { get; set; }
-		public ObservableCollection<int> StatusCodes { get; set; }
+		public string[] Applications { get; set; }
+		public string[] Hosts { get; set; }
+		public string[] Types { get; set; }
+		public string[] Sources { get; set; }
+		public string[] Users { get; set; }
+		public int[] StatusCodes { get; set; }
 
 		public ErrorLogCollection ErrorLogs { get; set; }
 		public ErrorLog ErrorLog { get; set; }
@@ -174,12 +175,12 @@ namespace ELMAH_Viewer
 			INotifyPropertyChanged el = Post.Cast<ErrorLogCollection, INotifyPropertyChanged>(ErrorLogs);
 			el.PropertyChanged += ErrorLogsPropertyChanged;
 
-			Applications = new ObservableCollection<string>();
-			Hosts = new ObservableCollection<string>();
-			Types = new ObservableCollection<string>();
-			Sources = new ObservableCollection<string>();
-			Users = new ObservableCollection<string>();
-			StatusCodes = new ObservableCollection<int>();
+			Applications = new string[0];
+			Hosts = new string[0];
+			Types = new string[0];
+			Sources = new string[0];
+			Users = new string[0];
+			StatusCodes = new int[0];
 
 			ErrorLog = new ErrorLog();
 		}
@@ -188,23 +189,12 @@ namespace ELMAH_Viewer
 		{
 			_currentSource.Value.LoadSearchValues();
 
-			Applications.Clear();
-			Applications.AddRange(_currentSource.Value.Applications);
-
-			Hosts.Clear();
-			Hosts.AddRange(_currentSource.Value.Hosts);
-
-			Types.Clear();
-			Types.AddRange(_currentSource.Value.Types);
-
-			Sources.Clear();
-			Sources.AddRange(_currentSource.Value.Sources);
-
-			Users.Clear();
-			Users.AddRange(_currentSource.Value.Users);
-
-			StatusCodes.Clear();
-			StatusCodes.AddRange(_currentSource.Value.StatusCodes);
+			Applications = _currentSource.Value.Applications.ToArray();
+			Hosts = _currentSource.Value.Hosts.ToArray();
+			Types = _currentSource.Value.Types.ToArray();
+			Sources = _currentSource.Value.Sources.ToArray();
+			Users = _currentSource.Value.Users.ToArray();
+			StatusCodes = _currentSource.Value.StatusCodes.ToArray();
 
 			_logs = _currentSource.Value.GetLogs(SettingsSection.Instance.Results.ResultsPerPage);
 

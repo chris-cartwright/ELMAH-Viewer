@@ -17,6 +17,10 @@ namespace ELMAH_Viewer.Windows
 	/// </summary>
 	public partial class MainWindow
 	{
+#if DEBUG
+		public static MainWindow Self;
+#endif
+
 		private static readonly ILog Logger = LogManager.GetLogger(typeof(MainWindow));
 
 		public MainWindow()
@@ -26,6 +30,10 @@ namespace ELMAH_Viewer.Windows
 			InitializeComponent();
 
 			Focus();
+
+#if DEBUG
+			Self = this;
+#endif
 		}
 
 		private void CommandBinding_OnCreateConnectionExecuted(object sender, ExecutedRoutedEventArgs e)

@@ -18,7 +18,13 @@ namespace ELMAH_Viewer.Controls
 	public partial class SearchItem
 	{
 		public static readonly DependencyProperty SearchOptionsProperty =
-			DependencyProperty.Register("SearchOptions", typeof(ObservableCollection<string>), typeof(SearchItem));
+			DependencyProperty.Register("SearchOptions", typeof(string[]), typeof(SearchItem),
+			new FrameworkPropertyMetadata(DefaultValue));
+
+		private static void DefaultValue(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
+		{
+			bool temp = false;
+		}
 
 		[UsedImplicitly]
 		[TypeConverter]
@@ -38,10 +44,12 @@ namespace ELMAH_Viewer.Controls
 		public string SearchType { get; set; }
 
 		[IgnoreAutoChangeNotification]
-		public ObservableCollection<string> SearchOptions
+		public string[] SearchOptions
 		{
-			get { return GetValue(SearchOptionsProperty) as ObservableCollection<string>; }
-			set { SetValue(SearchOptionsProperty, value); }
+			get { return GetValue(SearchOptionsProperty) as string[]; }
+			set {
+				SetValue(SearchOptionsProperty, value);
+			}
 		}
 
 		[SafeForDependencyAnalysis]
@@ -61,7 +69,7 @@ namespace ELMAH_Viewer.Controls
 		public SearchItem()
 		{
 			InitializeComponent();
-			SearchOptions = new ObservableCollection<string>();
+			SearchOptions = new string[0];	
 
 			DataContext = this;
 		}
