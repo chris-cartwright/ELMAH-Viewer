@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.Windows;
@@ -18,13 +17,7 @@ namespace ELMAH_Viewer.Controls
 	public partial class SearchItem
 	{
 		public static readonly DependencyProperty SearchOptionsProperty =
-			DependencyProperty.Register("SearchOptions", typeof(string[]), typeof(SearchItem),
-			new FrameworkPropertyMetadata(DefaultValue));
-
-		private static void DefaultValue(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
-		{
-			bool temp = false;
-		}
+			DependencyProperty.Register("SearchOptions", typeof(string[]), typeof(SearchItem));
 
 		[UsedImplicitly]
 		[TypeConverter]

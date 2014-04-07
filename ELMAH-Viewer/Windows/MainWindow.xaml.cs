@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using ELMAH_Viewer.Common;
 using ELMAH_Viewer.Configuration;
@@ -18,6 +16,8 @@ namespace ELMAH_Viewer.Windows
 	public partial class MainWindow
 	{
 #if DEBUG
+		// Used for debugging purposes
+		// ReSharper disable once NotAccessedField.Global
 		public static MainWindow Self;
 #endif
 
