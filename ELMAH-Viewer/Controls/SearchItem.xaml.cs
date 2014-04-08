@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using ELMAH_Viewer.Annotations;
+using ELMAH_Viewer.Common;
 using PostSharp.Patterns.Model;
 using System.Linq;
 
@@ -25,7 +26,12 @@ namespace ELMAH_Viewer.Controls
 		{
 			public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 			{
-				return ((ComboBoxItem)value).Content.ToString() != "Disabled";
+				if (value == null)
+				{
+					return true;
+				}
+
+				return ((SearchMode)value) != SearchMode.None;
 			}
 
 			public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -35,6 +41,7 @@ namespace ELMAH_Viewer.Controls
 		}
 
 		public string SearchType { get; set; }
+		public SearchMode SearchMode { get; set; }
 
 		[IgnoreAutoChangeNotification]
 		public string[] SearchOptions
@@ -65,6 +72,7 @@ namespace ELMAH_Viewer.Controls
 			SearchOptions = new string[0];	
 
 			DataContext = this;
+			ComboBoxMode.ItemsSource = Enum.GetValues(typeof(SearchMode)).Cast<SearchMode>();
 		}
 
 		private void All_Click(object sender, RoutedEventArgs e)

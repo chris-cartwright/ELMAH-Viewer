@@ -118,6 +118,8 @@
     <Compile Include="Helpers.cs" />
     <Compile Include="LogSourceCollection.cs" />
     <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="SearchParameter.cs" />
+    <Compile Include="SearchParameters.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="SimpleErrorLog.cs" />
     <Compile Include="ViewModel.cs" />

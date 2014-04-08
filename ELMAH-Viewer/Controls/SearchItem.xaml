@@ -13,11 +13,7 @@
     </UserControl.Resources>
     <DockPanel Width="150" IsEnabled="{Binding SearchOptions, Converter={StaticResource ListContainsElementsConverter}, Mode=OneWay}">
         <Label Content="{Binding SearchType}" DockPanel.Dock="Top" />
-        <ComboBox x:Name="ComboBoxMode" DockPanel.Dock="Top">
-            <ComboBoxItem Content="Inclusive"/>
-            <ComboBoxItem Content="Exclusive"/>
-            <ComboBoxItem Content="Disabled" IsSelected="True"/>
-        </ComboBox>
+        <ComboBox x:Name="ComboBoxMode" DockPanel.Dock="Top" SelectedItem="{Binding SearchMode}" />
         <DockPanel DockPanel.Dock="Top" LastChildFill="False" Margin="0,6,0,0">
             <DockPanel.IsEnabled>
                 <Binding ElementName="ComboBoxMode" Path="SelectedValue" Mode="OneWay">

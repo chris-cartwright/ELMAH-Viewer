@@ -28,8 +28,9 @@ namespace ELMAH_Viewer
 		private static readonly Lazy<ViewModel> _instance;
 		private Lazy<ILogSource, ILogSourceMetadata> _currentSource;
 
-		public static RoutedUICommand CreateConnection { get; private set; }
-		public static RoutedUICommand Connect { get; private set; }
+		public static RoutedUICommand CreateConnectionCommand { get; private set; }
+		public static RoutedUICommand ConnectCommand { get; private set; }
+		public static RoutedUICommand SearchCommand { get; private set; }
 
 		[IgnoreAutoChangeNotification]
 		public static ViewModel Instance
@@ -48,8 +49,9 @@ namespace ELMAH_Viewer
 
 		static ViewModel()
 		{
-			CreateConnection = new RoutedUICommand("Create new connection", "CreateConnectionCommand", typeof(ViewModel));
-			Connect = new RoutedUICommand("Connect to source", "ConnectCommand", typeof(ViewModel));
+			CreateConnectionCommand = new RoutedUICommand("Create new connection", "CreateConnectionCommand", typeof(ViewModel));
+			ConnectCommand = new RoutedUICommand("Connect to source", "ConnectCommand", typeof(ViewModel));
+			SearchCommand = new RoutedUICommand("Search logs", "SearchCommand", typeof(ViewModel));
 
 			_instance = new Lazy<ViewModel>(() => new ViewModel(), LazyThreadSafetyMode.PublicationOnly);
 		}
@@ -197,6 +199,12 @@ namespace ELMAH_Viewer
 
 			_logs = _currentSource.Value.GetLogs(SettingsSection.Instance.Results.ResultsPerPage);
 
+			ErrorLogs.CurrentPage = 1;
+		}
+
+		public void Search(SearchParameters sp)
+		{
+			_logs = _currentSource.Value.GetLogs(SettingsSection.Instance.Results.ResultsPerPage, sp);
 			ErrorLogs.CurrentPage = 1;
 		}
 	}

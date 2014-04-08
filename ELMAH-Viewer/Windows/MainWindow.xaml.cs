@@ -21,7 +21,7 @@ namespace ELMAH_Viewer.Windows
 		public static MainWindow Self;
 #endif
 
-		private static readonly ILog Logger = LogManager.GetLogger(typeof(MainWindow));
+		private static readonly ILog _logger = LogManager.GetLogger(typeof(MainWindow));
 
 		public MainWindow()
 		{
@@ -87,7 +87,7 @@ namespace ELMAH_Viewer.Windows
 			try
 			{
 				string settings = SettingsSection.Instance.SavedConnections[conn.Guid, conn.Name];
-				Logger.Info(String.Format("Connecting to {0} using connection {1} with settings: {2}", conn.Guid, conn.Name,
+				_logger.Info(String.Format("Connecting to {0} using connection {1} with settings: {2}", conn.Guid, conn.Name,
 					settings));
 				source.Value.Connect(settings);
 				ViewModel.Instance.CurrentSource = source;
@@ -95,8 +95,30 @@ namespace ELMAH_Viewer.Windows
 			catch (Exception ex)
 			{
 				MessageBox.Show(this, ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-				Logger.Error(ex);
+				_logger.Error(ex);
 			}
+		}
+
+		private void CommandBinding_OnSearchExecuted(object sender, ExecutedRoutedEventArgs e)
+		{
+			SearchParameters sp = new SearchParameters()
+			{
+				Application = { Mode = SearchItemApplications.SearchMode },
+				Host = { Mode = SearchItemHosts.SearchMode },
+				Type = { Mode = SearchItemTypes.SearchMode },
+				Source = { Mode = SearchItemSources.SearchMode },
+				User = { Mode = SearchItemUsers.SearchMode },
+				StatusCode = { Mode = SearchItemStatusCodes.SearchMode }
+			};
+
+			sp.Application.AddRange(SearchItemApplications.SelectedOptions);
+			sp.Host.AddRange(SearchItemHosts.SelectedOptions);
+			sp.Type.AddRange(SearchItemTypes.SelectedOptions);
+			sp.Source.AddRange(SearchItemSources.SelectedOptions);
+			sp.User.AddRange(SearchItemUsers.SelectedOptions);
+			sp.StatusCode.AddRange(SearchItemStatusCodes.SelectedOptions.Select(Int32.Parse));
+
+			ViewModel.Instance.Search(sp);
 		}
 
 		private void Debug_OnClick(object sender, RoutedEventArgs e)
