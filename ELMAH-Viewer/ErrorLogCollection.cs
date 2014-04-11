@@ -11,8 +11,23 @@ namespace ELMAH_Viewer
 	[NotifyPropertyChanged]
 	public class ErrorLogCollection : ObservableCollection<ISimpleErrorLog>
 	{
+		private int _currentPage;
+
 		public long TotalLogs { get; set; }
-		public int CurrentPage { get; set; }
+
+		public int CurrentPage
+		{
+			get { return _currentPage; }
+			set
+			{
+				if (value > TotalPages || value <= 0)
+				{
+					return;
+				}
+
+				_currentPage = value;
+			}
+		}
 
 		public int TotalPages
 		{

@@ -11,7 +11,7 @@ namespace ELMAH_Viewer.Common
 		ISearchParameter<string> User { get; }
 		ISearchParameter<int> StatusCode { get; }
 		ISearchParameter<byte> Severity { get; }
-		DateTime BeginTimeStamp { get; }
-		DateTime EndTimeStamp { get; }
+		DateTime? BeginTimeStamp { get; }
+		DateTime? EndTimeStamp { get; }
 	}
 }

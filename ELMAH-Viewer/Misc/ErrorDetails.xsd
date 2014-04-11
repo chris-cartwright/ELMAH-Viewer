@@ -47,8 +47,8 @@
       <xs:attribute name="source" type="xs:string" use="required" />
       <xs:attribute name="detail" type="xs:string" use="required" />
       <xs:attribute name="time" type="xs:dateTime" use="required" />
-      <xs:attribute name="statusCode" type="xs:unsignedShort" use="required" />
-      <xs:attribute name="webHostHtmlMessage" type="xs:string" use="required" />
+      <xs:attribute name="statusCode" type="xs:unsignedShort" use="optional" />
+      <xs:attribute name="webHostHtmlMessage" type="xs:string" use="optional" />
     </xs:complexType>
   </xs:element>
 </xs:schema>

@@ -169,8 +169,8 @@ namespace ELMAH_Viewer
 				SavedConnections[providerName].Add(new Connection() { Guid = conn.Provider, Name = conn.Name });
 			}
 
-			StartDateTime = DateTime.Now - new TimeSpan(7, 0, 0, 0, 0);
-			EndDateTime = DateTime.Now;
+			StartDateTime = DateTime.MinValue;
+			EndDateTime = DateTime.MaxValue;
 
 			ErrorLogs = new ErrorLogCollection();
 			INotifyPropertyChanged el = Post.Cast<ErrorLogCollection, INotifyPropertyChanged>(ErrorLogs);
@@ -205,7 +205,7 @@ namespace ELMAH_Viewer
 		public void Search(SearchParameters sp)
 		{
 			_logs = _currentSource.Value.GetLogs(SettingsSection.Instance.Results.ResultsPerPage, sp);
-			ErrorLogs.CurrentPage = 1;
+			LoadPage(1);
 		}
 	}
 }

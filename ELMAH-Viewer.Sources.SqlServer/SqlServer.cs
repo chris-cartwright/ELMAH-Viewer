@@ -55,7 +55,7 @@ namespace ELMAH_Viewer.Sources.SqlServer
 
 		public IResult GetLogs(int resultsPage, ISearchParameters parameters)
 		{
-			throw new NotImplementedException();
+			return new ResultLoader(_connection, resultsPage, parameters);
 		}
 
 		public void Connect(string settings)

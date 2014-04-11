@@ -118,6 +118,16 @@ namespace ELMAH_Viewer.Windows
 			sp.User.AddRange(SearchItemUsers.SelectedOptions);
 			sp.StatusCode.AddRange(SearchItemStatusCodes.SelectedOptions.Select(Int32.Parse));
 
+			if (ViewModel.Instance.StartDateTime != DateTime.MinValue)
+			{
+				sp.BeginTimeStamp = ViewModel.Instance.StartDateTime;
+			}
+
+			if (ViewModel.Instance.EndDateTime != DateTime.MaxValue)
+			{
+				sp.EndTimeStamp = ViewModel.Instance.EndDateTime;
+			}
+
 			ViewModel.Instance.Search(sp);
 		}
 

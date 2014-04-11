@@ -12,8 +12,8 @@ namespace ELMAH_Viewer
 		public SearchParameter<string> User { get; set; }
 		public SearchParameter<int> StatusCode { get; set; }
 		public SearchParameter<byte> Severity { get; set; }
-		public DateTime BeginTimeStamp { get; set; }
-		public DateTime EndTimeStamp { get; set; }
+		public DateTime? BeginTimeStamp { get; set; }
+		public DateTime? EndTimeStamp { get; set; }
 
 		ISearchParameter<string> ISearchParameters.Application
 		{
