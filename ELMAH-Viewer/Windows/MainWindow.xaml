@@ -83,7 +83,7 @@
         <xcad:DockingManager Margin="0,24,0,0">
             <xcad:LayoutRoot>
                 <xcad:LayoutPanel Orientation="Vertical">
-                    <xcad:LayoutAnchorablePane DockHeight="288">
+                    <xcad:LayoutAnchorablePane DockHeight="250">
                         <xcad:LayoutAnchorable Title="Search Criteria" CanClose="False">
                             <Grid>
                                 <Label Content="Start Date:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
@@ -186,7 +186,7 @@
                                         <Grid>
                                             <Grid.Resources>
                                                 <Style TargetType="{x:Type RowDefinition}">
-                                                    <Setter Property="Height" Value="25"/>
+                                                    <Setter Property="Height" Value="28"/>
                                                 </Style>
                                             </Grid.Resources>
                                             <Grid.RowDefinitions>
@@ -195,6 +195,7 @@
                                                 <RowDefinition />
                                                 <RowDefinition />
                                                 <RowDefinition />
+                                                <RowDefinition Height="*" />
                                             </Grid.RowDefinitions>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="150" />
@@ -204,10 +205,14 @@
                                             <Label Content="Status Code:" Grid.Column="0" Grid.Row="1"/>
                                             <Label Content="Type:" Grid.Column="0" Grid.Row="2"/>
                                             <Label Content="Source:" Grid.Column="0" Grid.Row="3"/>
+                                            <Label Content="Message:" Grid.Column="0" Grid.Row="4"/>
+                                            <Label Content="Stack Trace:" Grid.Column="0" Grid.Row="5"/>
                                             <Label Content="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.TimeUtc}" Grid.Column="1" Grid.Row="0"/>
                                             <Label Content="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.StatusCode}" Grid.Column="1" Grid.Row="1"/>
                                             <Label Content="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.Type}" Grid.Column="1" Grid.Row="2"/>
                                             <Label Content="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.Source}" Grid.Column="1" Grid.Row="3"/>
+                                            <Label Content="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.Message}" Grid.Column="1" Grid.Row="4"/>
+                                            <TextBox Text="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.StackTrace, Mode=OneWay}" IsReadOnly="True" Background="Transparent" BorderThickness="0" HorizontalScrollBarVisibility="Auto" Grid.Column="1" Grid.Row="5"/>
                                         </Grid>
                                     </TabItem>
                                     <TabItem Header="Form" IsEnabled="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.FormValues, Converter={StaticResource ListContainsElementsConverter}}">
@@ -226,7 +231,7 @@
                                         <ContentControl Content="{StaticResource DictionaryGrid}" DataContext="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.ExceptionValues, Mode=OneWay}"/>
                                     </TabItem>
                                     <TabItem Header="Raw">
-                                        <TextBox IsReadOnly="True" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Text="{Binding AllXml}"/>
+                                        <TextBox IsReadOnly="True" Background="Transparent" BorderThickness="0" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Text="{Binding AllXml, Mode=OneWay}"/>
                                     </TabItem>
                                 </TabControl>
                             </xcad:LayoutDocument>

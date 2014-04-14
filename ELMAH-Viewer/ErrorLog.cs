@@ -75,6 +75,14 @@ namespace ELMAH_Viewer
 			get { return GetGrid(@"//error/serverVariables/item[starts-with(@name, ""EXCEPTION_"")]"); }
 		}
 
+		public string StackTrace
+		{
+			get {
+				XmlNode ret = _document.SelectSingleNode("//error/@detail");
+				return ret != null ? ret.InnerText : String.Empty;
+			}
+		}
+
 		private IDictionary<string, string> GetGrid(string xpath)
 		{
 			XmlNodeList nodes = _document.SelectNodes(xpath);
