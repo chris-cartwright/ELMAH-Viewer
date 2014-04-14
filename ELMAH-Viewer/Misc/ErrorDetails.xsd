@@ -3,50 +3,89 @@
   <xs:element name="error">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="serverVariables">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element maxOccurs="unbounded" name="item">
-                <xs:complexType>
-                  <xs:sequence>
-                    <xs:element name="value">
-                      <xs:complexType>
-                        <xs:attribute name="string" type="xs:string" use="required" />
-                      </xs:complexType>
-                    </xs:element>
-                  </xs:sequence>
-                  <xs:attribute name="name" type="xs:string" use="required" />
-                </xs:complexType>
-              </xs:element>
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="form">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element maxOccurs="unbounded" name="item">
-                <xs:complexType>
-                  <xs:sequence>
-                    <xs:element name="value">
-                      <xs:complexType>
-                        <xs:attribute name="string" type="xs:string" use="required" />
-                      </xs:complexType>
-                    </xs:element>
-                  </xs:sequence>
-                  <xs:attribute name="name" type="xs:string" use="required" />
-                </xs:complexType>
-              </xs:element>
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="serverVariables">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element maxOccurs="unbounded" name="item">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="value">
+                        <xs:complexType>
+                          <xs:attribute name="string" type="xs:string" use="required" />
+                        </xs:complexType>
+                      </xs:element>
+                    </xs:sequence>
+                    <xs:attribute name="name" type="xs:string" use="required" />
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="form">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element maxOccurs="unbounded" name="item">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="value">
+                        <xs:complexType>
+                          <xs:attribute name="string" type="xs:string" use="required" />
+                        </xs:complexType>
+                      </xs:element>
+                    </xs:sequence>
+                    <xs:attribute name="name" type="xs:string" use="required" />
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="cookies">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element maxOccurs="unbounded" name="item">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="value">
+                        <xs:complexType>
+                          <xs:attribute name="string" type="xs:string" use="required" />
+                        </xs:complexType>
+                      </xs:element>
+                    </xs:sequence>
+                    <xs:attribute name="name" type="xs:string" use="required" />
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="queryString">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element maxOccurs="unbounded" name="item">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="value">
+                        <xs:complexType>
+                          <xs:attribute name="string" type="xs:string" use="required" />
+                        </xs:complexType>
+                      </xs:element>
+                    </xs:sequence>
+                    <xs:attribute name="name" type="xs:string" use="required" />
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
       </xs:sequence>
-      <xs:attribute name="application" type="xs:string" use="required" />
-      <xs:attribute name="host" type="xs:string" use="required" />
-      <xs:attribute name="type" type="xs:string" use="required" />
-      <xs:attribute name="message" type="xs:string" use="required" />
-      <xs:attribute name="source" type="xs:string" use="required" />
-      <xs:attribute name="detail" type="xs:string" use="required" />
-      <xs:attribute name="time" type="xs:dateTime" use="required" />
+      <xs:attribute name="application" type="xs:string" use="optional" />
+      <xs:attribute name="host" type="xs:string" use="optional" />
+      <xs:attribute name="type" type="xs:string" use="optional" />
+      <xs:attribute name="message" type="xs:string" use="optional" />
+      <xs:attribute name="source" type="xs:string" use="optional" />
+      <xs:attribute name="detail" type="xs:string" use="optional" />
+      <xs:attribute name="time" type="xs:dateTime" use="optional" />
+      <xs:attribute name="user" type="xs:string" use="optional" />
       <xs:attribute name="statusCode" type="xs:unsignedShort" use="optional" />
       <xs:attribute name="webHostHtmlMessage" type="xs:string" use="optional" />
     </xs:complexType>

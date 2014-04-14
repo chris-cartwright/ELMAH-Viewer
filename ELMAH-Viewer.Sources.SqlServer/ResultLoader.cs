@@ -53,6 +53,8 @@ namespace ELMAH_Viewer.Sources.SqlServer
 			{
 				_query.Where("TimeUtc<=@0", parameters.EndTimeStamp);
 			}
+
+			_query.OrderBy("TimeUtc DESC");
 		}
 
 		public async Task<IResultPage> GetPageAsync(int page)

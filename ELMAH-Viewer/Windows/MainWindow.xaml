@@ -16,9 +16,12 @@
         <CommandBinding Command="elmahViewer:ViewModel.CreateConnectionCommand" Executed="CommandBinding_OnCreateConnectionExecuted"/>
         <CommandBinding Command="elmahViewer:ViewModel.ConnectCommand" Executed="CommandBinding_OnConnectExecuted"/>
         <CommandBinding Command="elmahViewer:ViewModel.SearchCommand" Executed="CommandBinding_OnSearchExecuted"/>
+        <CommandBinding Command="elmahViewer:ViewModel.ResetDatesCommand" Executed="CommandBinding_OnResetDatesExecuted"/>
     </Window.CommandBindings>
     <Window.Resources>
         <converters:CollectionConverter x:Key="CollectionConverter"/>
+        <converters:ListContainsElementsConverter x:Key="ListContainsElementsConverter"/>
+        <converters:NotNullConverter x:Key="NotNullConverter"/>
         <CollectionViewSource Source="{Binding ElementName=ElmahViewerWindow, Path=DataContext.SavedConnections}" x:Key="SavedConnections"/>
         <Style x:Key="ConnectionStyle">
             <Setter Property="MenuItem.Header" Value="{Binding Name}"/>
@@ -87,7 +90,8 @@
                                 <xctk:DateTimePicker Margin="81,12,0,0" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="140" Value="{Binding StartDateTime}" Format="Custom" FormatString="dd/MM/yyyy HH:mm"/>
                                 <Label Content="End Date:" HorizontalAlignment="Left" Margin="226,10,0,0" VerticalAlignment="Top"/>
                                 <xctk:DateTimePicker Margin="292,12,0,0" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="140" Value="{Binding EndDateTime}" Format="Custom" FormatString="dd/MM/yyyy HH:mm"/>
-                                <Button Content="Search" VerticalAlignment="Top" Width="75" Margin="0,12,6,0" HorizontalAlignment="Right" Command="{Binding ElementName=ElmahViewerWindow, Path=DataContext.SearchCommand}"/>
+                                <Button Content="Reset Dates" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="437,13,0,0" Command="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ResetDatesCommand}"/>
+                                <Button Content="Search" VerticalAlignment="Top" Width="75" Margin="0,12,6,0" HorizontalAlignment="Right" IsEnabled="{Binding ElementName=ElmahViewerWindow, Path=DataContext.CurrentSource, Converter={StaticResource NotNullConverter}}" Command="{Binding ElementName=ElmahViewerWindow, Path=DataContext.SearchCommand}"/>
                                 <StackPanel Orientation="Horizontal" RenderTransformOrigin="0,0.5" Margin="12,43,0,0">
                                     <StackPanel.Resources>
                                         <Style TargetType="{x:Type controls:SearchItem}">
@@ -206,19 +210,19 @@
                                             <Label Content="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.Source}" Grid.Column="1" Grid.Row="3"/>
                                         </Grid>
                                     </TabItem>
-                                    <TabItem Header="Form">
+                                    <TabItem Header="Form" IsEnabled="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.FormValues, Converter={StaticResource ListContainsElementsConverter}}">
                                         <ContentControl Content="{StaticResource DictionaryGrid}" DataContext="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.FormValues, Mode=OneWay}"/>
                                     </TabItem>
-                                    <TabItem Header="Cookie">
+                                    <TabItem Header="Cookie" IsEnabled="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.CookieValues, Converter={StaticResource ListContainsElementsConverter}}">
                                         <ContentControl Content="{StaticResource DictionaryGrid}" DataContext="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.CookieValues, Mode=OneWay}"/>
                                     </TabItem>
-                                    <TabItem Header="Query String">
+                                    <TabItem Header="Query String" IsEnabled="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.QueryStringValues, Converter={StaticResource ListContainsElementsConverter}}">
                                         <ContentControl Content="{StaticResource DictionaryGrid}" DataContext="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.QueryStringValues, Mode=OneWay}"/>
                                     </TabItem>
-                                    <TabItem Header="Server Variables">
+                                    <TabItem Header="Server Variables" IsEnabled="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.ServerValues, Converter={StaticResource ListContainsElementsConverter}}">
                                         <ContentControl Content="{StaticResource DictionaryGrid}" DataContext="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.ServerValues, Mode=OneWay}"/>
                                     </TabItem>
-                                    <TabItem Header="Exception">
+                                    <TabItem Header="Exception" IsEnabled="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.ExceptionValues, Converter={StaticResource ListContainsElementsConverter}}">
                                         <ContentControl Content="{StaticResource DictionaryGrid}" DataContext="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.ExceptionValues, Mode=OneWay}"/>
                                     </TabItem>
                                     <TabItem Header="Raw">

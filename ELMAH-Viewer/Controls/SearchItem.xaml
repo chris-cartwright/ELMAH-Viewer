@@ -11,7 +11,7 @@
         <converters:ProxyConverter x:Key="ListBoxDisabledConverter" Type="{x:Type controls:SearchItem+ListBoxDisabledConverter}"/>
         <converters:ListContainsElementsConverter x:Key="ListContainsElementsConverter"/>
     </UserControl.Resources>
-    <DockPanel Width="150" IsEnabled="{Binding SearchOptions, Converter={StaticResource ListContainsElementsConverter}, Mode=OneWay}">
+    <DockPanel IsEnabled="{Binding SearchOptions, Converter={StaticResource ListContainsElementsConverter}, Mode=OneWay}">
         <Label Content="{Binding SearchType}" DockPanel.Dock="Top" />
         <ComboBox x:Name="ComboBoxMode" DockPanel.Dock="Top" SelectedItem="{Binding SearchMode}" />
         <DockPanel DockPanel.Dock="Top" LastChildFill="False" Margin="0,6,0,0">

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
+using System.Windows;
 using log4net;
 using log4net.Config;
 
@@ -22,7 +23,12 @@ namespace ELMAH_Viewer
 
 		public App()
 		{
-			AppDomain.CurrentDomain.UnhandledException += (sender, args) => Logger.Fatal(args.ExceptionObject);
+			Current.DispatcherUnhandledException += (sender, args) =>
+			{
+				Logger.Fatal(args.Exception);
+				MessageBox.Show(args.Exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+				args.Handled = true;
+			};
 
 			if (!File.Exists(LogDatabasePath))
 			{

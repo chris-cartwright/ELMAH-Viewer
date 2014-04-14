@@ -57,12 +57,12 @@ namespace ELMAH_Viewer
 
 		public IEnumerable<KeyValuePair<string, string>> CookieValues
 		{
-			get { return GetGrid("//error/cookie/item"); }
+			get { return GetGrid("//error/cookies/item"); }
 		}
 
 		public IEnumerable<KeyValuePair<string, string>> QueryStringValues
 		{
-			get { return GetGrid("//error/querystring/item"); }
+			get { return GetGrid("//error/queryString/item"); }
 		}
 
 		public IEnumerable<KeyValuePair<string, string>> ServerValues

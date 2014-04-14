@@ -35,12 +35,12 @@ namespace ELMAH_Viewer.Sources.SqlServer
 
 		public void LoadSearchValues()
 		{
-			Applications.AddRange(_connection.Fetch<string>("SELECT DISTINCT Application FROM ELMAH_Error"));
-			Hosts.AddRange(_connection.Fetch<string>("SELECT DISTINCT Host FROM ELMAH_Error"));
-			Types.AddRange(_connection.Fetch<string>("SELECT DISTINCT Type FROM ELMAH_Error"));
-			Sources.AddRange(_connection.Fetch<string>("SELECT DISTINCT Source FROM ELMAH_Error"));
-			Users.AddRange(_connection.Fetch<string>("SELECT DISTINCT User FROM ELMAH_Error"));
-			StatusCodes.AddRange(_connection.Fetch<int>("SELECT DISTINCT StatusCode FROM ELMAH_Error"));
+			Applications.AddRange(_connection.Fetch<string>("SELECT DISTINCT Application FROM ELMAH_Error ORDER BY Application"));
+			Hosts.AddRange(_connection.Fetch<string>("SELECT DISTINCT Host FROM ELMAH_Error ORDER BY Host"));
+			Types.AddRange(_connection.Fetch<string>("SELECT DISTINCT Type FROM ELMAH_Error ORDER BY Type"));
+			Sources.AddRange(_connection.Fetch<string>("SELECT DISTINCT Source FROM ELMAH_Error ORDER BY Source"));
+			Users.AddRange(_connection.Fetch<string>("SELECT DISTINCT User FROM ELMAH_Error ORDER BY User"));
+			StatusCodes.AddRange(_connection.Fetch<int>("SELECT DISTINCT StatusCode FROM ELMAH_Error ORDER BY StatusCode"));
 		}
 
 		public async Task<IErrorLog> GetLog(Guid errorId)

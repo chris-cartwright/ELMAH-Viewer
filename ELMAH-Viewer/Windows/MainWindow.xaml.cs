@@ -131,6 +131,12 @@ namespace ELMAH_Viewer.Windows
 			ViewModel.Instance.Search(sp);
 		}
 
+		private void CommandBinding_OnResetDatesExecuted(object sender, ExecutedRoutedEventArgs e)
+		{
+			ViewModel.Instance.StartDateTime = DateTime.MinValue;
+			ViewModel.Instance.EndDateTime = DateTime.MaxValue;
+		}
+
 		private void Debug_OnClick(object sender, RoutedEventArgs e)
 		{
 			Debugger.Break();
