@@ -92,19 +92,21 @@
                                 <xctk:DateTimePicker Margin="292,12,0,0" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="140" Value="{Binding EndDateTime}" Format="Custom" FormatString="dd/MM/yyyy HH:mm"/>
                                 <Button Content="Reset Dates" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="437,13,0,0" Command="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ResetDatesCommand}"/>
                                 <Button Content="Search" VerticalAlignment="Top" Width="75" Margin="0,12,6,0" HorizontalAlignment="Right" IsEnabled="{Binding ElementName=ElmahViewerWindow, Path=DataContext.CurrentSource, Converter={StaticResource NotNullConverter}}" Command="{Binding ElementName=ElmahViewerWindow, Path=DataContext.SearchCommand}"/>
-                                <StackPanel Orientation="Horizontal" RenderTransformOrigin="0,0.5" Margin="12,43,0,0">
-                                    <StackPanel.Resources>
-                                        <Style TargetType="{x:Type controls:SearchItem}">
-                                            <Setter Property="Margin" Value="0,0,6,0"/>
-                                        </Style>
-                                    </StackPanel.Resources>
-                                    <controls:SearchItem x:Name="SearchItemApplications" SearchType="Applications" SearchOptions="{Binding DataContext.Applications, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" />
-                                    <controls:SearchItem x:Name="SearchItemHosts" SearchType="Hosts" SearchOptions="{Binding DataContext.Hosts, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" />
-                                    <controls:SearchItem x:Name="SearchItemTypes" SearchType="Types" SearchOptions="{Binding DataContext.Types, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" />
-                                    <controls:SearchItem x:Name="SearchItemSources" SearchType="Sources" SearchOptions="{Binding DataContext.Sources, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" />
-                                    <controls:SearchItem x:Name="SearchItemUsers" SearchType="Users" SearchOptions="{Binding DataContext.Users, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" />
-                                    <controls:SearchItem x:Name="SearchItemStatusCodes" SearchType="StatusCodes" SearchOptions="{Binding DataContext.StatusCodes, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={StaticResource CollectionConverter}}" />
-                                </StackPanel>
+                                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                                    <StackPanel Orientation="Horizontal" RenderTransformOrigin="0,0.5" Margin="12,43,0,0">
+                                        <StackPanel.Resources>
+                                            <Style TargetType="{x:Type controls:SearchItem}">
+                                                <Setter Property="Margin" Value="0,0,6,0"/>
+                                            </Style>
+                                        </StackPanel.Resources>
+                                        <controls:SearchItem x:Name="SearchItemApplications" SearchType="Applications" SearchOptions="{Binding DataContext.Applications, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" />
+                                        <controls:SearchItem x:Name="SearchItemHosts" SearchType="Hosts" SearchOptions="{Binding DataContext.Hosts, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" />
+                                        <controls:SearchItem x:Name="SearchItemTypes" SearchType="Types" SearchOptions="{Binding DataContext.Types, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" />
+                                        <controls:SearchItem x:Name="SearchItemSources" SearchType="Sources" SearchOptions="{Binding DataContext.Sources, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" />
+                                        <controls:SearchItem x:Name="SearchItemUsers" SearchType="Users" SearchOptions="{Binding DataContext.Users, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" />
+                                        <controls:SearchItem x:Name="SearchItemStatusCodes" SearchType="StatusCodes" SearchOptions="{Binding DataContext.StatusCodes, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={StaticResource CollectionConverter}}" />
+                                    </StackPanel>
+                                </ScrollViewer>
                             </Grid>
                         </xcad:LayoutAnchorable>
                     </xcad:LayoutAnchorablePane>
