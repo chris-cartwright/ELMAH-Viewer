@@ -126,14 +126,61 @@
                                                 </Binding.RelativeSource>
                                             </Binding>
                                         </DataGrid.ItemsSource>
+                                        <DataGrid.Resources>
+                                            <Style TargetType="{x:Type TextBox}">
+                                                <Setter Property="BorderThickness" Value="0" />
+                                            </Style>
+                                        </DataGrid.Resources>
                                         <DataGrid.Columns>
-                                            <DataGridTextColumn Header="TimeStamp" Binding="{Binding Path=TimeUtc}"/>
-                                            <DataGridTextColumn Header="Application" Binding="{Binding Path=Application}"/>
-                                            <DataGridTextColumn Header="Host" Binding="{Binding Path=Host}"/>
-                                            <DataGridTextColumn Header="Type" Binding="{Binding Path=Type}"/>
-                                            <DataGridTextColumn Header="Source" Binding="{Binding Path=Source}"/>
-                                            <DataGridTextColumn Header="User" Binding="{Binding Path=User}"/>
-                                            <DataGridTextColumn Header="StatusCode" Binding="{Binding Path=StatusCode}"/>
+                                            <DataGridTemplateColumn Header="TimeStamp">
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBox IsReadOnly="True" Text="{Binding TimeUtc}" />
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+                                            <DataGridTemplateColumn Header="Application">
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBox IsReadOnly="True" Text="{Binding Application}" />
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+                                            <DataGridTemplateColumn Header="Host">
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBox IsReadOnly="True" Text="{Binding Host}" />
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+                                            <DataGridTemplateColumn Header="Type">
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBox IsReadOnly="True" Text="{Binding Type}" />
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+                                            <DataGridTemplateColumn Header="Source">
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBox IsReadOnly="True" Text="{Binding Source}" />
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+                                            <DataGridTemplateColumn Header="User">
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBox IsReadOnly="True" Text="{Binding User}" />
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+                                            <DataGridTemplateColumn Header="Status Code">
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBox IsReadOnly="True" Text="{Binding StatusCode}" />
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
                                         </DataGrid.Columns>
                                     </DataGrid>
                                     <StatusBar Grid.Row="1">
