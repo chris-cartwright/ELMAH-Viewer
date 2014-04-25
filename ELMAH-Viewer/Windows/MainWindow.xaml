@@ -52,13 +52,15 @@
             <MenuItem Header="_File">
                 <MenuItem Header="_Refresh"/>
                 <Separator/>
+                <MenuItem Header="Report _Bug" Click="ReportBug_Click"/>
+                <Separator/>
                 <MenuItem Header="_Exit"/>
                 <MenuItem Visibility="{x:Static elmahViewer:ViewModel.IsDebug}" Header="Break" Click="Debug_OnClick"/>
             </MenuItem>
             <MenuItem Header="_Connect">
                 <MenuItem.ItemsSource>
                     <CompositeCollection>
-                        <MenuItem Header="_New / Edit" ItemsSource="{Binding LogSources}" >
+                        <MenuItem Header="_New / Edit" ItemsSource="{Binding LogSources}">
                             <MenuItem.ItemContainerStyle>
                                 <Style TargetType="{x:Type MenuItem}">
                                     <Setter Property="Header" Value="{Binding Metadata.Name}"/>

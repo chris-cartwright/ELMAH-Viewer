@@ -141,5 +141,10 @@ namespace ELMAH_Viewer.Windows
 		{
 			Debugger.Break();
 		}
+
+        private void ReportBug_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start("https://gitreports.com/issue/chris-cartwright/ELMAH-Viewer");
+        }
 	}
 }
