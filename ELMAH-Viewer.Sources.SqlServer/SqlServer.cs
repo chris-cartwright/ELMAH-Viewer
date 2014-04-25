@@ -35,6 +35,13 @@ namespace ELMAH_Viewer.Sources.SqlServer
 
 		public void LoadSearchValues()
 		{
+            Applications.Clear();
+		    Hosts.Clear();
+		    Types.Clear();
+		    Sources.Clear();
+		    Users.Clear();
+		    StatusCodes.Clear();
+
 			Applications.AddRange(_connection.Fetch<string>("SELECT DISTINCT Application FROM ELMAH_Error ORDER BY Application"));
 			Hosts.AddRange(_connection.Fetch<string>("SELECT DISTINCT Host FROM ELMAH_Error ORDER BY Host"));
 			Types.AddRange(_connection.Fetch<string>("SELECT DISTINCT Type FROM ELMAH_Error ORDER BY Type"));
