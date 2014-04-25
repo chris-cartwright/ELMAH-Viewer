@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Media;
 using ELMAH_Viewer.Annotations;
+using Newtonsoft.Json;
 
 namespace ELMAH_Viewer
 {
@@ -68,5 +69,17 @@ namespace ELMAH_Viewer
 
 			return ret;
 		}
+
+	    public static string MaybeJson(this string value)
+	    {
+	        try
+	        {
+	            return JsonConvert.SerializeObject(JsonConvert.DeserializeObject(value), Formatting.Indented);
+	        }
+	        catch (Exception)
+	        {
+	            return value;
+	        }
+	    }
 	}
 }

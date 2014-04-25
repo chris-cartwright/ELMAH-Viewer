@@ -73,7 +73,7 @@ namespace ELMAH_Viewer
 
 		public IEnumerable<KeyValuePair<string, string>> ExceptionValues
 		{
-			get { return GetGrid(@"//error/serverVariables/item[starts-with(@name, ""EXCEPTION_"")]"); }
+			get { return MaybeJson(GetGrid(@"//error/serverVariables/item[starts-with(@name, ""EXCEPTION_"")]")); }
 		}
 
 		public string StackTrace
@@ -107,6 +107,11 @@ namespace ELMAH_Viewer
 				select r
 			).ToArray();
 			// ReSharper restore PossibleNullReferenceException
+		}
+
+		private KeyValuePair<string, string>[] MaybeJson(IEnumerable<KeyValuePair<string, string>> data)
+		{
+			return data.Select(row => new KeyValuePair<string, string>(row.Key, row.Value.MaybeJson())).ToArray();
 		}
 
 		public ErrorLog()
