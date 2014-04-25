@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace ELMAH_Viewer.Common
 {
@@ -10,6 +12,17 @@ namespace ELMAH_Viewer.Common
 			{
 				dest.Add(item);
 			}
+		}
+
+		public static string GetName<T>(this Expression<Func<T>> member)
+		{
+			MemberExpression memberExp = member.Body as MemberExpression;
+			if (memberExp == null)
+			{
+				throw new ArgumentException("Expected member expression.", "member");
+			}
+
+			return memberExp.Member.Name;
 		}
 	}
 }
