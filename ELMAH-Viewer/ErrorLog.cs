@@ -67,7 +67,7 @@ namespace ELMAH_Viewer
 
 		public IEnumerable<KeyValuePair<string, string>> ServerValues
 		{
-			get { return GetGrid("//error/serverVariables/item"); }
+			get { return GetGrid(@"//error/serverVariables/item[not(starts-with(@name, ""EXCEPTION_""))]"); }
 		}
 
 		public IEnumerable<KeyValuePair<string, string>> ExceptionValues
