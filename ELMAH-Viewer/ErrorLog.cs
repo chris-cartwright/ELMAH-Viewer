@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Xml;
 using System.Xml.Schema;
@@ -77,30 +78,35 @@ namespace ELMAH_Viewer
 
 		public string StackTrace
 		{
-			get {
+			get
+			{
 				XmlNode ret = _document.SelectSingleNode("//error/@detail");
 				return ret != null ? ret.InnerText : String.Empty;
 			}
 		}
 
-		private IDictionary<string, string> GetGrid(string xpath)
+		// This should return an array because the ListContainsElements converter doesn't support IEnumerable
+		// ReSharper disable once ReturnTypeCanBeEnumerable.Local
+		private KeyValuePair<string, string>[] GetGrid(string xpath)
 		{
 			XmlNodeList nodes = _document.SelectNodes(xpath);
 			if (nodes == null)
 			{
-				return new Dictionary<string, string>();
+				return new Dictionary<string, string>().ToArray();
 			}
 
-			Dictionary<string, string> ret = new Dictionary<string, string>();
-			foreach (XmlNode node in nodes)
-			{
-				// Verified against XSD
-				// ReSharper disable PossibleNullReferenceException
-				ret[node.Attributes["name"].Value] = node.SelectSingleNode("value").Attributes["string"].Value;
-				// ReSharper restore PossibleNullReferenceException
-			}
-
-			return ret;
+			// ReSharper disable PossibleNullReferenceException
+			return (
+				from node in nodes.Cast<XmlNode>()
+				let r =
+					new KeyValuePair<string, string>(
+						node.Attributes["name"].Value,
+						node.SelectSingleNode("value").Attributes["string"].Value
+					)
+				orderby r.Key
+				select r
+			).ToArray();
+			// ReSharper restore PossibleNullReferenceException
 		}
 
 		public ErrorLog()
