@@ -263,7 +263,7 @@
                                             <Label Content="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.Type}" Grid.Column="1" Grid.Row="2"/>
                                             <Label Content="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.Source}" Grid.Column="1" Grid.Row="3"/>
                                             <Label Content="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.Message}" Grid.Column="1" Grid.Row="4"/>
-                                            <TextBox Text="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.StackTrace, Mode=OneWay}" IsReadOnly="True" Background="Transparent" BorderThickness="0" HorizontalScrollBarVisibility="Auto" Grid.Column="1" Grid.Row="5"/>
+                                            <TextBox Text="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.StackTrace, Mode=OneWay}" IsReadOnly="True" Background="Transparent" BorderThickness="0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Grid.Column="1" Grid.Row="5"/>
                                         </Grid>
                                     </TabItem>
                                     <TabItem Header="Form" IsEnabled="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.FormValues, Converter={StaticResource ListContainsElementsConverter}}">
