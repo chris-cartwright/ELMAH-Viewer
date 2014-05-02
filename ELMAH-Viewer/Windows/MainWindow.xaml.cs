@@ -36,6 +36,38 @@ namespace ELMAH_Viewer.Windows
 #endif
 		}
 
+		private SearchParameters CreateSearch()
+		{
+			SearchParameters sp = new SearchParameters()
+			{
+				Application = { Mode = SearchItemApplications.SearchMode },
+				Host = { Mode = SearchItemHosts.SearchMode },
+				Type = { Mode = SearchItemTypes.SearchMode },
+				Source = { Mode = SearchItemSources.SearchMode },
+				User = { Mode = SearchItemUsers.SearchMode },
+				StatusCode = { Mode = SearchItemStatusCodes.SearchMode }
+			};
+
+			sp.Application.AddRange(SearchItemApplications.SelectedOptions);
+			sp.Host.AddRange(SearchItemHosts.SelectedOptions);
+			sp.Type.AddRange(SearchItemTypes.SelectedOptions);
+			sp.Source.AddRange(SearchItemSources.SelectedOptions);
+			sp.User.AddRange(SearchItemUsers.SelectedOptions);
+			sp.StatusCode.AddRange(SearchItemStatusCodes.SelectedOptions.Select(Int32.Parse));
+
+			if (ViewModel.Instance.StartDateTime != DateTime.MinValue)
+			{
+				sp.BeginTimeStamp = ViewModel.Instance.StartDateTime;
+			}
+
+			if (ViewModel.Instance.EndDateTime != DateTime.MaxValue)
+			{
+				sp.EndTimeStamp = ViewModel.Instance.EndDateTime;
+			}
+
+			return sp;
+		}
+
 		private void CommandBinding_OnCreateConnectionExecuted(object sender, ExecutedRoutedEventArgs e)
 		{
 			if (e.Parameter == null)
@@ -101,34 +133,7 @@ namespace ELMAH_Viewer.Windows
 
 		private void CommandBinding_OnSearchExecuted(object sender, ExecutedRoutedEventArgs e)
 		{
-			SearchParameters sp = new SearchParameters()
-			{
-				Application = { Mode = SearchItemApplications.SearchMode },
-				Host = { Mode = SearchItemHosts.SearchMode },
-				Type = { Mode = SearchItemTypes.SearchMode },
-				Source = { Mode = SearchItemSources.SearchMode },
-				User = { Mode = SearchItemUsers.SearchMode },
-				StatusCode = { Mode = SearchItemStatusCodes.SearchMode }
-			};
-
-			sp.Application.AddRange(SearchItemApplications.SelectedOptions);
-			sp.Host.AddRange(SearchItemHosts.SelectedOptions);
-			sp.Type.AddRange(SearchItemTypes.SelectedOptions);
-			sp.Source.AddRange(SearchItemSources.SelectedOptions);
-			sp.User.AddRange(SearchItemUsers.SelectedOptions);
-			sp.StatusCode.AddRange(SearchItemStatusCodes.SelectedOptions.Select(Int32.Parse));
-
-			if (ViewModel.Instance.StartDateTime != DateTime.MinValue)
-			{
-				sp.BeginTimeStamp = ViewModel.Instance.StartDateTime;
-			}
-
-			if (ViewModel.Instance.EndDateTime != DateTime.MaxValue)
-			{
-				sp.EndTimeStamp = ViewModel.Instance.EndDateTime;
-			}
-
-			ViewModel.Instance.Search(sp);
+			ViewModel.Instance.Search(CreateSearch());
 		}
 
 		private void CommandBinding_OnResetDatesExecuted(object sender, ExecutedRoutedEventArgs e)
@@ -137,14 +142,32 @@ namespace ELMAH_Viewer.Windows
 			ViewModel.Instance.EndDateTime = DateTime.MaxValue;
 		}
 
+		private void CommandBinding_OnDeleteExecuted(object sender, ExecutedRoutedEventArgs e)
+		{
+			MessageBoxResult res = MessageBox.Show(
+				this,
+				"Really delete selected logs?",
+				"Confirm Delete",
+				MessageBoxButton.OKCancel,
+				MessageBoxImage.Stop
+			);
+
+			if (res == MessageBoxResult.OK)
+			{
+				ViewModel.Instance.CurrentSource.Value.DeleteLogs(CreateSearch());
+				ViewModel.Instance.LoadSource();
+				MessageBox.Show(this, "Logs deleted.", "Success", MessageBoxButton.OK);
+			}
+		}
+
 		private void Debug_OnClick(object sender, RoutedEventArgs e)
 		{
 			Debugger.Break();
 		}
 
-        private void ReportBug_Click(object sender, RoutedEventArgs e)
-        {
-            Process.Start("https://gitreports.com/issue/chris-cartwright/ELMAH-Viewer");
-        }
+		private void ReportBug_Click(object sender, RoutedEventArgs e)
+		{
+			Process.Start("https://gitreports.com/issue/chris-cartwright/ELMAH-Viewer");
+		}
 	}
 }

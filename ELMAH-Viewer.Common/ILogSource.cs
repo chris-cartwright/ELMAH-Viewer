@@ -22,5 +22,6 @@ namespace ELMAH_Viewer.Common
 		Task<IErrorLog> GetLog(Guid errorId);
 		IResult GetLogs(int resultsPage);
 		IResult GetLogs(int resultsPage, ISearchParameters parameters);
+		void DeleteLogs(ISearchParameters parameters);
 	}
 }

@@ -57,12 +57,17 @@ namespace ELMAH_Viewer.Sources.SqlServer
 
 		public IResult GetLogs(int resultsPage)
 		{
-			return new ResultLoader(_connection, resultsPage);
+			return new ResultHandler(_connection, resultsPage);
 		}
 
 		public IResult GetLogs(int resultsPage, ISearchParameters parameters)
 		{
-			return new ResultLoader(_connection, resultsPage, parameters);
+			return new ResultHandler(_connection, resultsPage, parameters);
+		}
+
+		public void DeleteLogs(ISearchParameters parameters)
+		{
+			new ResultHandler(_connection, 0, parameters).Delete();
 		}
 
 		public void Connect(string settings)

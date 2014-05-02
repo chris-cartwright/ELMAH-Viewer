@@ -56,7 +56,7 @@
     <Compile Include="Elmah.cs" />
     <Compile Include="Models\PetaPoco.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ResultLoader.cs" />
+    <Compile Include="ResultHandler.cs" />
     <Compile Include="ResultPage.cs" />
     <Compile Include="SqlServer.cs" />
   </ItemGroup>
