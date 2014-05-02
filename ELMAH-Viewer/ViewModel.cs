@@ -88,7 +88,17 @@ namespace ELMAH_Viewer
 			}
 		}
 
+		public string WindowTitle
+		{
+			get
+			{
+				Depends.On(CurrentConnection);
+				return CurrentSource == null ? "ELMAH-Viewer" : "ELMAH-Viewer :: " + CurrentConnection;
+			}
+		}
+
 		public Dictionary<string, List<Connection>> SavedConnections { get; set; }
+		public string CurrentConnection { get; set; }
 
 		public DateTime StartDateTime { get; set; }
 		public DateTime EndDateTime { get; set; }

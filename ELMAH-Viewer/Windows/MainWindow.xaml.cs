@@ -123,6 +123,7 @@ namespace ELMAH_Viewer.Windows
 					settings));
 				source.Value.Connect(settings);
 				ViewModel.Instance.CurrentSource = source;
+				ViewModel.Instance.CurrentConnection = conn.Name;
 			}
 			catch (Exception ex)
 			{
