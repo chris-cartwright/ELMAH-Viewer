@@ -41,7 +41,7 @@
                 <DataGridTemplateColumn Header="Value" Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBox Text="{Binding Value, Mode=OneWay}" IsReadOnly="True" BorderThickness="0"/>
+                            <TextBox Text="{Binding Value, Mode=OneWay}" HorizontalScrollBarVisibility="Auto" IsReadOnly="True" BorderThickness="0"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
