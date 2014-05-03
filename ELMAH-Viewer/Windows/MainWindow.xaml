@@ -10,7 +10,7 @@
         xmlns:converters="clr-namespace:ELMAH_Viewer.Converters"
         mc:Ignorable="d"
         Name="ElmahViewerWindow"
-        Title="{Binding WindowTitle}" Height="500" Width="980" MinHeight="500" MinWidth="980"
+        Title="{Binding WindowTitle}" Height="530" Width="980" MinHeight="500" MinWidth="980"
         d:DataContext="{d:DesignInstance elmahViewer:ViewModel}">
     <Window.CommandBindings>
         <CommandBinding Command="elmahViewer:ViewModel.CreateConnectionCommand" Executed="CommandBinding_OnCreateConnectionExecuted"/>
@@ -247,7 +247,7 @@
                                                 <RowDefinition />
                                                 <RowDefinition />
                                                 <RowDefinition />
-                                                <RowDefinition />
+                                                <RowDefinition MinHeight="28" Height="Auto" />
                                                 <RowDefinition Height="*" />
                                             </Grid.RowDefinitions>
                                             <Grid.ColumnDefinitions>
@@ -264,8 +264,8 @@
                                             <Label Content="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.StatusCode}" Grid.Column="1" Grid.Row="1"/>
                                             <Label Content="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.Type}" Grid.Column="1" Grid.Row="2"/>
                                             <Label Content="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.Source}" Grid.Column="1" Grid.Row="3"/>
-                                            <Label Content="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.Message}" Grid.Column="1" Grid.Row="4"/>
-                                            <TextBox Text="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.StackTrace, Mode=OneWay}" IsReadOnly="True" Background="Transparent" BorderThickness="0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Grid.Column="1" Grid.Row="5"/>
+                                            <TextBox Text="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.Message, Mode=OneWay}" Padding="5" IsReadOnly="True" Background="Transparent" BorderThickness="0" TextWrapping="Wrap" Grid.Column="1" Grid.Row="4"/>
+                                            <TextBox Text="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.StackTrace, Mode=OneWay}" Padding="5" IsReadOnly="True" Background="Transparent" BorderThickness="0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Grid.Column="1" Grid.Row="5"/>
                                         </Grid>
                                     </TabItem>
                                     <TabItem Header="Form" IsEnabled="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.FormValues, Converter={StaticResource ListContainsElementsConverter}}">
