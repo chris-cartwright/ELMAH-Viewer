@@ -19,11 +19,11 @@ namespace ELMAH_Viewer.Sources.SqlServer
 
 			if (p.Mode == SearchMode.Inclusive)
 			{
-				sql.Where(param.GetName() + " in (@test)", new { test = p.ToArray() });
+				sql.Where("[" + param.GetName() + "] in (@test)", new { test = p.ToArray() });
 			}
 			else
 			{
-				sql.Where(param.GetName() + " not in (@test)", new { test = p.ToArray() });
+				sql.Where("[" + param.GetName() + "] not in (@test)", new { test = p.ToArray() });
 			}
 		}
 
@@ -50,12 +50,12 @@ namespace ELMAH_Viewer.Sources.SqlServer
 
 			if (_params.BeginTimeStamp != null)
 			{
-				query.Where("TimeUtc>=@0", _params.BeginTimeStamp);
+				query.Where("[TimeUtc]>=@0", _params.BeginTimeStamp);
 			}
 
 			if (_params.EndTimeStamp != null)
 			{
-				query.Where("TimeUtc<=@0", _params.EndTimeStamp);
+				query.Where("[TimeUtc]<=@0", _params.EndTimeStamp);
 			}
 		}
 
@@ -88,7 +88,7 @@ namespace ELMAH_Viewer.Sources.SqlServer
 			{
 				Sql query = Sql.Builder.Select("*").From("ELMAH_Error");
 				AddWhere(query);
-				query.OrderBy("TimeUtc DESC");
+				query.OrderBy("[TimeUtc] DESC");
 
 				Page<Elmah> next = _connection.Page<Elmah>(page, ResultsPerPage, query);
 				if (next.Items.Count == 0)
