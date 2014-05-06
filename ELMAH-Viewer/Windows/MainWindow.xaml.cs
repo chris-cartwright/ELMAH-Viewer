@@ -153,12 +153,15 @@ namespace ELMAH_Viewer.Windows
 				MessageBoxImage.Stop
 			);
 
-			if (res == MessageBoxResult.OK)
+			if (res != MessageBoxResult.OK)
 			{
-				ViewModel.Instance.CurrentSource.Value.DeleteLogs(CreateSearch());
-				ViewModel.Instance.LoadSource();
-				MessageBox.Show(this, "Logs deleted.", "Success", MessageBoxButton.OK);
+				return;
 			}
+
+			ViewModel.Instance.CurrentSource.Value.DeleteLogs(CreateSearch());
+			ViewModel.Instance.LoadSource();
+			MessageBox.Show(this, "Logs deleted.", "Success", MessageBoxButton.OK);
+			ViewModel.Instance.Search(CreateSearch());
 		}
 
 		private void Debug_OnClick(object sender, RoutedEventArgs e)
