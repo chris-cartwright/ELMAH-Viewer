@@ -88,7 +88,7 @@ namespace ELMAH_Viewer.Sources.SqlServer
 			{
 				Sql query = Sql.Builder.Select("*").From("ELMAH_Error");
 				AddWhere(query);
-				query.OrderBy("[TimeUtc] DESC");
+				query.OrderBy("TimeUtc DESC");
 
 				Page<Elmah> next = _connection.Page<Elmah>(page, ResultsPerPage, query);
 				if (next.Items.Count == 0)
