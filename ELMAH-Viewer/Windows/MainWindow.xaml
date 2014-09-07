@@ -23,6 +23,7 @@
         <converters:CollectionConverter x:Key="CollectionConverter"/>
         <converters:ListContainsElementsConverter x:Key="ListContainsElementsConverter"/>
         <converters:NotNullConverter x:Key="NotNullConverter"/>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
         <CollectionViewSource Source="{Binding ElementName=ElmahViewerWindow, Path=DataContext.SavedConnections}" x:Key="SavedConnections"/>
         <Style x:Key="ConnectionStyle">
             <Setter Property="MenuItem.Header" Value="{Binding Name}"/>
@@ -95,7 +96,7 @@
                                 <xctk:DateTimePicker Margin="292,12,0,0" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="140" Value="{Binding EndDateTime}" Format="Custom" FormatString="dd/MM/yyyy HH:mm"/>
                                 <Button Content="Reset Dates" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="437,13,0,0" Command="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ResetDatesCommand}"/>
                                 <Button Content="Search" VerticalAlignment="Top" Width="75" Margin="0,12,86,0" HorizontalAlignment="Right" IsEnabled="{Binding ElementName=ElmahViewerWindow, Path=DataContext.CurrentSource, Converter={StaticResource NotNullConverter}}" Command="{Binding ElementName=ElmahViewerWindow, Path=DataContext.SearchCommand}"/>
-                                <Button Content="Delete" VerticalAlignment="Top" Width="75" Margin="0,12,6,0" HorizontalAlignment="Right" IsEnabled="{Binding ElementName=ElmahViewerWindow, Path=DataContext.CurrentSource, Converter={StaticResource NotNullConverter}}" Command="{Binding ElementName=ElmahViewerWindow, Path=DataContext.DeleteCommand}"/>
+                                <Button Content="Delete" VerticalAlignment="Top" Width="75" Margin="0,12,6,0" HorizontalAlignment="Right" IsEnabled="{Binding ElementName=ElmahViewerWindow, Path=DataContext.CurrentSource, Converter={StaticResource NotNullConverter}}" Command="{Binding ElementName=ElmahViewerWindow, Path=DataContext.DeleteCommand}" Visibility="{Binding ElementName=ElmahViewerWindow, Path=DataContext.CanDelete, Converter={StaticResource BoolToVisibility}}"/>
                                 <ScrollViewer Margin="0,43,0,0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
                                     <StackPanel Orientation="Horizontal" RenderTransformOrigin="0,0.5" Margin="12,0,0,0">
                                         <StackPanel.Resources>

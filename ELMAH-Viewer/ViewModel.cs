@@ -112,6 +112,7 @@ namespace ELMAH_Viewer
 
 		public ErrorLogCollection ErrorLogs { get; set; }
 		public ErrorLog ErrorLog { get; set; }
+		public bool CanDelete { get; set; }
 
 		private async void LoadLog(Guid errorId)
 		{

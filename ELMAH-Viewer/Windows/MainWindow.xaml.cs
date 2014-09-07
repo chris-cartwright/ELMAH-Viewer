@@ -118,11 +118,12 @@ namespace ELMAH_Viewer.Windows
 
 			try
 			{
-				string settings = SettingsSection.Instance.SavedConnections[conn.Guid, conn.Name];
+				ConnectionElement settings = SettingsSection.Instance.SavedConnections[conn.Guid, conn.Name];
 				_logger.Info(String.Format("Connecting to {0} using connection {1} with settings: {2}", conn.Guid, conn.Name,
 					settings));
-				source.Value.Connect(settings);
+				source.Value.Connect(settings.Content);
 				ViewModel.Instance.CurrentSource = source;
+				ViewModel.Instance.CanDelete = settings.CanDelete;
 				ViewModel.Instance.CurrentConnection = conn.Name;
 			}
 			catch (Exception ex)

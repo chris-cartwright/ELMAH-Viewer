@@ -48,6 +48,11 @@
 				<xs:documentation>The Provider.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
+		<xs:attribute name="canDelete" use="optional" type="xs:boolean">
+			<xs:annotation>
+				<xs:documentation>The CanDelete.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
 	</xs:complexType>
 	<xs:complexType name="ELMAH_Viewer.Configuration.SourcesElementCT">
 		<xs:attribute name="location" use="required" type="xs:string">

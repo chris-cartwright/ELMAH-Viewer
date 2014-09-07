@@ -47,6 +47,11 @@
             <externalTypeMoniker name="/c2684573-4a8c-4361-b8c8-aaa072334f16/String" />
           </type>
         </attributeProperty>
+        <attributeProperty name="CanDelete" isRequired="false" isKey="false" isDefaultCollection="false" xmlName="canDelete" isReadOnly="false" defaultValue="false">
+          <type>
+            <externalTypeMoniker name="/c2684573-4a8c-4361-b8c8-aaa072334f16/Boolean" />
+          </type>
+        </attributeProperty>
       </attributeProperties>
     </configurationElement>
     <configurationElement name="SourcesElement">
