@@ -23,6 +23,7 @@
         <converters:CollectionConverter x:Key="CollectionConverter"/>
         <converters:ListContainsElementsConverter x:Key="ListContainsElementsConverter"/>
         <converters:NotNullConverter x:Key="NotNullConverter"/>
+        <converters:UtcToLocalConverter x:Key="UtcToLocalConverter"/>
         <CollectionViewSource Source="{Binding ElementName=ElmahViewerWindow, Path=DataContext.SavedConnections}" x:Key="SavedConnections"/>
         <Style x:Key="ConnectionStyle">
             <Setter Property="MenuItem.Header" Value="{Binding Name}"/>
@@ -139,7 +140,7 @@
                                             <DataGridTemplateColumn Header="TimeStamp">
                                                 <DataGridTemplateColumn.CellTemplate>
                                                     <DataTemplate>
-                                                        <TextBox IsReadOnly="True" Text="{Binding TimeUtc}" />
+                                                        <TextBox IsReadOnly="True" Text="{Binding TimeUtc, Converter={StaticResource UtcToLocalConverter}}" />
                                                     </DataTemplate>
                                                 </DataGridTemplateColumn.CellTemplate>
                                             </DataGridTemplateColumn>
@@ -260,7 +261,7 @@
                                             <Label Content="Source:" Grid.Column="0" Grid.Row="3"/>
                                             <Label Content="Message:" Grid.Column="0" Grid.Row="4"/>
                                             <Label Content="Stack Trace:" Grid.Column="0" Grid.Row="5"/>
-                                            <Label Content="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.TimeUtc}" Grid.Column="1" Grid.Row="0"/>
+                                            <Label Content="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.TimeUtc, Converter={StaticResource UtcToLocalConverter}}" Grid.Column="1" Grid.Row="0"/>
                                             <Label Content="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.StatusCode}" Grid.Column="1" Grid.Row="1"/>
                                             <Label Content="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.Type}" Grid.Column="1" Grid.Row="2"/>
                                             <Label Content="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.Source}" Grid.Column="1" Grid.Row="3"/>
