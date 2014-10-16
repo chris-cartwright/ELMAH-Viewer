@@ -151,6 +151,13 @@
                                                     </DataTemplate>
                                                 </DataGridTemplateColumn.CellTemplate>
                                             </DataGridTemplateColumn>
+                                            <DataGridTemplateColumn Header="Error ID">
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBox IsReadOnly="True" Text="{Binding ErrorId}" />
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
                                             <DataGridTemplateColumn Header="Host">
                                                 <DataGridTemplateColumn.CellTemplate>
                                                     <DataTemplate>
@@ -248,6 +255,7 @@
                                                 <RowDefinition />
                                                 <RowDefinition />
                                                 <RowDefinition />
+                                                <RowDefinition />
                                                 <RowDefinition MinHeight="28" Height="Auto" />
                                                 <RowDefinition Height="*" />
                                             </Grid.RowDefinitions>
@@ -256,17 +264,19 @@
                                                 <ColumnDefinition Width="*" />
                                             </Grid.ColumnDefinitions>
                                             <Label Content="Date/Time:" Grid.Column="0" Grid.Row="0"/>
-                                            <Label Content="Status Code:" Grid.Column="0" Grid.Row="1"/>
-                                            <Label Content="Type:" Grid.Column="0" Grid.Row="2"/>
-                                            <Label Content="Source:" Grid.Column="0" Grid.Row="3"/>
-                                            <Label Content="Message:" Grid.Column="0" Grid.Row="4"/>
-                                            <Label Content="Stack Trace:" Grid.Column="0" Grid.Row="5"/>
+                                            <Label Content="Error ID:" Grid.Column="0" Grid.Row="1"/>
+                                            <Label Content="Status Code:" Grid.Column="0" Grid.Row="2"/>
+                                            <Label Content="Type:" Grid.Column="0" Grid.Row="3"/>
+                                            <Label Content="Source:" Grid.Column="0" Grid.Row="4"/>
+                                            <Label Content="Message:" Grid.Column="0" Grid.Row="5"/>
+                                            <Label Content="Stack Trace:" Grid.Column="0" Grid.Row="6"/>
                                             <Label Content="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.TimeUtc, Converter={StaticResource UtcToLocalConverter}}" Grid.Column="1" Grid.Row="0"/>
-                                            <Label Content="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.StatusCode}" Grid.Column="1" Grid.Row="1"/>
-                                            <Label Content="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.Type}" Grid.Column="1" Grid.Row="2"/>
-                                            <Label Content="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.Source}" Grid.Column="1" Grid.Row="3"/>
-                                            <TextBox Text="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.Message, Mode=OneWay}" Padding="5" IsReadOnly="True" Background="Transparent" BorderThickness="0" TextWrapping="Wrap" Grid.Column="1" Grid.Row="4"/>
-                                            <TextBox Text="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.StackTrace, Mode=OneWay}" Padding="5" IsReadOnly="True" Background="Transparent" BorderThickness="0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Grid.Column="1" Grid.Row="5"/>
+                                            <Label Content="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.ErrorId}" Grid.Column="1" Grid.Row="1"/>
+                                            <Label Content="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.StatusCode}" Grid.Column="1" Grid.Row="2"/>
+                                            <Label Content="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.Type}" Grid.Column="1" Grid.Row="3"/>
+                                            <Label Content="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.Source}" Grid.Column="1" Grid.Row="4"/>
+                                            <TextBox Text="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.Message, Mode=OneWay}" Padding="5" IsReadOnly="True" Background="Transparent" BorderThickness="0" TextWrapping="Wrap" Grid.Column="1" Grid.Row="5"/>
+                                            <TextBox Text="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.StackTrace, Mode=OneWay}" Padding="5" IsReadOnly="True" Background="Transparent" BorderThickness="0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Grid.Column="1" Grid.Row="6"/>
                                         </Grid>
                                     </TabItem>
                                     <TabItem Header="Form" IsEnabled="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ErrorLog.FormValues, Converter={StaticResource ListContainsElementsConverter}}">
