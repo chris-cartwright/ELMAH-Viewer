@@ -183,7 +183,7 @@ namespace ELMAH_Viewer
 				SavedConnections[providerName].Add(new Connection() { Guid = conn.Provider, Name = conn.Name });
 			}
 
-			StartDateTime = DateTime.MinValue;
+			StartDateTime = new DateTime(0, DateTimeKind.Utc);
 			EndDateTime = DateTime.MaxValue;
 
 			ErrorLogs = new ErrorLogCollection();

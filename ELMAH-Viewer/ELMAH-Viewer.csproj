@@ -129,6 +129,7 @@
     <Compile Include="Converters\NotNullConverter.cs" />
     <Compile Include="Converters\ListContainsElementsConverter.cs" />
     <Compile Include="Converters\ProxyConverter.cs" />
+    <Compile Include="Converters\LocalToUtcConverter.cs" />
     <Compile Include="Converters\UtcToLocalConverter.cs" />
     <Compile Include="ErrorLog.cs" />
     <Compile Include="ErrorLogCollection.cs" />

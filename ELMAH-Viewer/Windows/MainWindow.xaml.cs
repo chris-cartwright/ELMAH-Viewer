@@ -139,7 +139,7 @@ namespace ELMAH_Viewer.Windows
 
 		private void CommandBinding_OnResetDatesExecuted(object sender, ExecutedRoutedEventArgs e)
 		{
-			ViewModel.Instance.StartDateTime = DateTime.MinValue;
+			ViewModel.Instance.StartDateTime = new DateTime(0, DateTimeKind.Utc);
 			ViewModel.Instance.EndDateTime = DateTime.MaxValue;
 		}
 
