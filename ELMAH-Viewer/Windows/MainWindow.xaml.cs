@@ -164,6 +164,13 @@ namespace ELMAH_Viewer.Windows
 			ViewModel.Instance.Search(CreateSearch());
 		}
 
+		private void CommandBinding_OnTodayExecuted(object sender, ExecutedRoutedEventArgs e)
+		{
+			ViewModel.Instance.StartDateTime = DateTime.Now.ToUniversalTime().Date;
+			ViewModel.Instance.EndDateTime = ViewModel.Instance.StartDateTime + new TimeSpan(1, 0, 0, 0);
+			ViewModel.Instance.RangeLocked = true;
+		}
+
 		private void Debug_OnClick(object sender, RoutedEventArgs e)
 		{
 			Debugger.Break();

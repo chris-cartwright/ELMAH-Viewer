@@ -32,6 +32,7 @@ namespace ELMAH_Viewer
 		public static RoutedUICommand ConnectCommand { get; private set; }
 		public static RoutedUICommand SearchCommand { get; private set; }
 		public static RoutedUICommand ResetDatesCommand { get; private set; }
+		public static RoutedUICommand TodayCommand { get; private set; }
 		public static RoutedUICommand DeleteCommand { get; private set; }
 
 		[IgnoreAutoChangeNotification]
@@ -55,6 +56,7 @@ namespace ELMAH_Viewer
 			ConnectCommand = new RoutedUICommand("Connect to source", "ConnectCommand", typeof(ViewModel));
 			SearchCommand = new RoutedUICommand("Search logs", "SearchCommand", typeof(ViewModel));
 			ResetDatesCommand = new RoutedUICommand("Reset Dates", "ResetDatesCommand", typeof(ViewModel));
+			TodayCommand = new RoutedUICommand("Today", "TodayCommand", typeof(ViewModel));
 			DeleteCommand = new RoutedUICommand("Delete logs", "DeleteCommand", typeof(ViewModel));
 
 			_instance = new Lazy<ViewModel>(() => new ViewModel(), LazyThreadSafetyMode.PublicationOnly);

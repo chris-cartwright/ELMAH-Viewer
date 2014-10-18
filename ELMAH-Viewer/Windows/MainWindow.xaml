@@ -17,6 +17,7 @@
         <CommandBinding Command="elmahViewer:ViewModel.ConnectCommand" Executed="CommandBinding_OnConnectExecuted"/>
         <CommandBinding Command="elmahViewer:ViewModel.SearchCommand" Executed="CommandBinding_OnSearchExecuted"/>
         <CommandBinding Command="elmahViewer:ViewModel.ResetDatesCommand" Executed="CommandBinding_OnResetDatesExecuted"/>
+        <CommandBinding Command="elmahViewer:ViewModel.TodayCommand" Executed="CommandBinding_OnTodayExecuted"/>
         <CommandBinding Command="elmahViewer:ViewModel.DeleteCommand" Executed="CommandBinding_OnDeleteExecuted"/>
     </Window.CommandBindings>
     <Window.Resources>
@@ -92,15 +93,20 @@
                     <xcad:LayoutAnchorablePane DockHeight="250">
                         <xcad:LayoutAnchorable Title="Search Criteria" CanClose="False">
                             <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="174*"/>
+                                    <RowDefinition Height="49*"/>
+                                </Grid.RowDefinitions>
                                 <Label Content="Start Date:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
                                 <xctk:DateTimePicker Margin="81,12,0,0" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="140" Value="{Binding StartDateTime, Converter={StaticResource LocalToUtcConverter}}" Format="Custom" FormatString="dd/MM/yyyy HH:mm"/>
                                 <Label Content="End Date:" HorizontalAlignment="Left" Margin="226,10,0,0" VerticalAlignment="Top"/>
                                 <xctk:DateTimePicker Margin="292,12,0,0" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="140" Value="{Binding EndDateTime, Converter={StaticResource LocalToUtcConverter}}" Format="Custom" FormatString="dd/MM/yyyy HH:mm" IsEnabled="{Binding ElementName=LockRangeCheckBox, Path=IsChecked, Converter={StaticResource InvertBoolConverter}}"/>
                                 <Button Content="Reset Dates" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="437,13,0,0" Command="{Binding ElementName=ElmahViewerWindow, Path=DataContext.ResetDatesCommand}"/>
-                                <CheckBox Content="Lock Range" HorizontalAlignment="Left" Margin="517,16,0,0" VerticalAlignment="Top" Name="LockRangeCheckBox" IsChecked="{Binding ElementName=ElmahViewerWindow, Path=DataContext.RangeLocked}"/>
+                                <Button Content="Today" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="517,13,0,0" Command="{Binding ElementName=ElmahViewerWindow, Path=DataContext.TodayCommand}"/>
+                                <CheckBox Content="Lock Range" HorizontalAlignment="Left" Margin="596,16,0,0" VerticalAlignment="Top" Name="LockRangeCheckBox" IsChecked="{Binding ElementName=ElmahViewerWindow, Path=DataContext.RangeLocked}"/>
                                 <Button Content="Search" VerticalAlignment="Top" Width="75" Margin="0,12,86,0" HorizontalAlignment="Right" IsEnabled="{Binding ElementName=ElmahViewerWindow, Path=DataContext.CurrentSource, Converter={StaticResource NotNullConverter}}" Command="{Binding ElementName=ElmahViewerWindow, Path=DataContext.SearchCommand}"/>
                                 <Button Content="Delete" VerticalAlignment="Top" Width="75" Margin="0,12,6,0" HorizontalAlignment="Right" IsEnabled="{Binding ElementName=ElmahViewerWindow, Path=DataContext.CurrentSource, Converter={StaticResource NotNullConverter}}" Command="{Binding ElementName=ElmahViewerWindow, Path=DataContext.DeleteCommand}"/>
-                                <ScrollViewer Margin="0,43,0,0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                                <ScrollViewer Margin="0,43,0,0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" Grid.RowSpan="2">
                                     <StackPanel Orientation="Horizontal" RenderTransformOrigin="0,0.5" Margin="12,0,0,0">
                                         <StackPanel.Resources>
                                             <Style TargetType="{x:Type controls:SearchItem}">
