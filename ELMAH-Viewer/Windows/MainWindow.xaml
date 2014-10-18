@@ -133,8 +133,11 @@
                                             </Binding>
                                         </DataGrid.ItemsSource>
                                         <DataGrid.Resources>
+                                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#99FFFF"/>
+                                            <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#99FFFF"/>
                                             <Style TargetType="{x:Type TextBox}">
                                                 <Setter Property="BorderThickness" Value="0" />
+                                                <Setter Property="Background" Value="Transparent"></Setter>
                                             </Style>
                                         </DataGrid.Resources>
                                         <DataGrid.Columns>
