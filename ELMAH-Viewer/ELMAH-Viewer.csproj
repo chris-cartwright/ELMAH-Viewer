@@ -126,6 +126,7 @@
       <DependentUpon>SearchItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\CollectionConverter.cs" />
+    <Compile Include="Converters\InvertBoolConverter.cs" />
     <Compile Include="Converters\NotNullConverter.cs" />
     <Compile Include="Converters\ListContainsElementsConverter.cs" />
     <Compile Include="Converters\ProxyConverter.cs" />

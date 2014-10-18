@@ -61,6 +61,7 @@ namespace ELMAH_Viewer
 		}
 
 		private IResult _logs;
+		private TimeSpan _lockSpan;
 
 		[ImportMany(typeof(ILogSource))]
 		public LogSourceCollection LogSources { get; set; }
@@ -102,6 +103,7 @@ namespace ELMAH_Viewer
 
 		public DateTime StartDateTime { get; set; }
 		public DateTime EndDateTime { get; set; }
+		public bool RangeLocked { get; set; }
 
 		public string[] Applications { get; set; }
 		public string[] Hosts { get; set; }
@@ -147,6 +149,25 @@ namespace ELMAH_Viewer
 			}
 		}
 
+		private void PropertyChanged(object sender, PropertyChangedEventArgs e)
+		{
+			switch (e.PropertyName)
+			{
+				case "RangeLocked":
+					_lockSpan = EndDateTime - StartDateTime;
+					break;
+
+				case "StartDateTime":
+					if (!RangeLocked)
+					{
+						return;
+					}
+
+					EndDateTime = StartDateTime + _lockSpan;
+					break;
+			}
+		}
+
 		private ViewModel()
 		{
 			string path = Path.Combine(Helpers.ApplicationPath, SettingsSection.Instance.Sources.Location);
@@ -189,6 +210,9 @@ namespace ELMAH_Viewer
 			ErrorLogs = new ErrorLogCollection();
 			INotifyPropertyChanged el = Post.Cast<ErrorLogCollection, INotifyPropertyChanged>(ErrorLogs);
 			el.PropertyChanged += ErrorLogsPropertyChanged;
+
+			INotifyPropertyChanged vm = Post.Cast<ViewModel, INotifyPropertyChanged>(this);
+			vm.PropertyChanged += PropertyChanged;
 
 			Applications = new string[0];
 			Hosts = new string[0];
