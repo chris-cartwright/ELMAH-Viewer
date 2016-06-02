@@ -1,16 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30110.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ELMAH-Viewer", "ELMAH-Viewer\ELMAH-Viewer.csproj", "{1B7D1D5F-4EC7-42FE-9445-29FAAAFE2218}"
-	ProjectSection(ProjectDependencies) = postProject
-		{FD54CF3D-8C46-40CD-8091-CBFF189D7C81} = {FD54CF3D-8C46-40CD-8091-CBFF189D7C81}
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ELMAH-Viewer.Common", "ELMAH-Viewer.Common\ELMAH-Viewer.Common.csproj", "{AB5125F0-FD7E-419A-B8CB-7FF0CF70E673}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ELMAH-Viewer.Sources.SqlServer", "ELMAH-Viewer.Sources.SqlServer\ELMAH-Viewer.Sources.SqlServer.csproj", "{FD54CF3D-8C46-40CD-8091-CBFF189D7C81}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1B7D1D5F-4EC7-42FE-9445-29FAAAFE2218} = {1B7D1D5F-4EC7-42FE-9445-29FAAAFE2218}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sample", "Sample", "{2159DF5C-17FA-4BDA-9C1F-E52631A67D77}"
 	ProjectSection(SolutionItems) = preProject

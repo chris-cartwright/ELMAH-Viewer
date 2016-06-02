@@ -5,6 +5,7 @@ using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Windows;
 using System.Windows.Input;
@@ -15,237 +16,242 @@ using PostSharp.Patterns.Model;
 
 namespace ELMAH_Viewer
 {
-	[NotifyPropertyChanged]
-	internal class ViewModel
-	{
-		[NotifyPropertyChanged]
-		public class Connection
-		{
-			public string Name { get; set; }
-			public string Guid { get; set; }
-		}
+    [NotifyPropertyChanged]
+    internal class ViewModel
+    {
+        [NotifyPropertyChanged]
+        public class Connection
+        {
+            public string Name { get; set; }
+            public string Guid { get; set; }
+        }
 
-		private static readonly Lazy<ViewModel> _instance;
-		private Lazy<ILogSource, ILogSourceMetadata> _currentSource;
+        private static readonly Lazy<ViewModel> _instance;
+        private Lazy<ILogSource, ILogSourceMetadata> _currentSource;
 
-		public static RoutedUICommand CreateConnectionCommand { get; private set; }
-		public static RoutedUICommand ConnectCommand { get; private set; }
-		public static RoutedUICommand SearchCommand { get; private set; }
-		public static RoutedUICommand ResetDatesCommand { get; private set; }
-		public static RoutedUICommand TodayCommand { get; private set; }
-		public static RoutedUICommand DeleteCommand { get; private set; }
+        public static RoutedUICommand CreateConnectionCommand { get; private set; }
+        public static RoutedUICommand ConnectCommand { get; private set; }
+        public static RoutedUICommand SearchCommand { get; private set; }
+        public static RoutedUICommand ResetDatesCommand { get; private set; }
+        public static RoutedUICommand TodayCommand { get; private set; }
+        public static RoutedUICommand DeleteCommand { get; private set; }
 
-		[IgnoreAutoChangeNotification]
-		public static ViewModel Instance
-		{
-			get { return _instance.Value; }
-		}
+        [IgnoreAutoChangeNotification]
+        public static ViewModel Instance
+        {
+            get { return _instance.Value; }
+        }
 
-		public static Visibility IsDebug
-		{
+        public static Visibility IsDebug
+        {
 #if DEBUG
-			get { return Visibility.Visible; }
+            get { return Visibility.Visible; }
 #else
 			get { return Visibility.Collapsed; }
 #endif
-		}
+        }
 
-		static ViewModel()
-		{
-			CreateConnectionCommand = new RoutedUICommand("Create new connection", "CreateConnectionCommand", typeof(ViewModel));
-			ConnectCommand = new RoutedUICommand("Connect to source", "ConnectCommand", typeof(ViewModel));
-			SearchCommand = new RoutedUICommand("Search logs", "SearchCommand", typeof(ViewModel));
-			ResetDatesCommand = new RoutedUICommand("Reset Dates", "ResetDatesCommand", typeof(ViewModel));
-			TodayCommand = new RoutedUICommand("Today", "TodayCommand", typeof(ViewModel));
-			DeleteCommand = new RoutedUICommand("Delete logs", "DeleteCommand", typeof(ViewModel));
+        static ViewModel()
+        {
+            CreateConnectionCommand = new RoutedUICommand("Create new connection", "CreateConnectionCommand", typeof(ViewModel));
+            ConnectCommand = new RoutedUICommand("Connect to source", "ConnectCommand", typeof(ViewModel));
+            SearchCommand = new RoutedUICommand("Search logs", "SearchCommand", typeof(ViewModel));
+            ResetDatesCommand = new RoutedUICommand("Reset Dates", "ResetDatesCommand", typeof(ViewModel));
+            TodayCommand = new RoutedUICommand("Today", "TodayCommand", typeof(ViewModel));
+            DeleteCommand = new RoutedUICommand("Delete logs", "DeleteCommand", typeof(ViewModel));
 
-			_instance = new Lazy<ViewModel>(() => new ViewModel(), LazyThreadSafetyMode.PublicationOnly);
-		}
+            _instance = new Lazy<ViewModel>(() => new ViewModel(), LazyThreadSafetyMode.PublicationOnly);
+        }
 
-		private IResult _logs;
-		private TimeSpan _lockSpan;
+        private IResult _logs;
+        private TimeSpan _lockSpan;
 
-		[ImportMany(typeof(ILogSource))]
-		public LogSourceCollection LogSources { get; set; }
+        [ImportMany(typeof(ILogSource))]
+        public LogSourceCollection LogSources { get; set; }
 
-		public Lazy<ILogSource, ILogSourceMetadata> CurrentSource
-		{
-			get { return _currentSource; }
-			set
-			{
-				_currentSource = value;
-				LoadSource();
-			}
-		}
+        public Lazy<ILogSource, ILogSourceMetadata> CurrentSource
+        {
+            get { return _currentSource; }
+            set
+            {
+                _currentSource = value;
+                LoadSource();
+            }
+        }
 
-		public ISimpleErrorLog SelectedLog
-		{
-			set
-			{
-				if (value == null)
-				{
-					return;
-				}
+        public ISimpleErrorLog SelectedLog
+        {
+            set
+            {
+                if (value == null)
+                {
+                    return;
+                }
 
-				LoadLog(value.ErrorId);
-			}
-		}
+                LoadLog(value.ErrorId);
+            }
+        }
 
-		public string WindowTitle
-		{
-			get
-			{
-				Depends.On(CurrentConnection);
-				return CurrentSource == null ? "ELMAH-Viewer" : "ELMAH-Viewer :: " + CurrentConnection;
-			}
-		}
+        public string WindowTitle
+        {
+            get
+            {
+                Depends.On(CurrentConnection);
+                return CurrentSource == null ? "ELMAH-Viewer" : "ELMAH-Viewer :: " + CurrentConnection;
+            }
+        }
 
-		public Dictionary<string, List<Connection>> SavedConnections { get; set; }
-		public string CurrentConnection { get; set; }
+        public Dictionary<string, List<Connection>> SavedConnections { get; set; }
+        public string CurrentConnection { get; set; }
 
-		public DateTime StartDateTime { get; set; }
-		public DateTime EndDateTime { get; set; }
-		public bool RangeLocked { get; set; }
+        public DateTime StartDateTime { get; set; }
+        public DateTime EndDateTime { get; set; }
+        public bool RangeLocked { get; set; }
 
-		public string[] Applications { get; set; }
-		public string[] Hosts { get; set; }
-		public string[] Types { get; set; }
-		public string[] Sources { get; set; }
-		public string[] Users { get; set; }
-		public int[] StatusCodes { get; set; }
+        public string[] Applications { get; set; }
+        public string[] Hosts { get; set; }
+        public string[] Types { get; set; }
+        public string[] Sources { get; set; }
+        public string[] Users { get; set; }
+        public int[] StatusCodes { get; set; }
 
-		public ErrorLogCollection ErrorLogs { get; set; }
-		public ErrorLog ErrorLog { get; set; }
+        public ErrorLogCollection ErrorLogs { get; set; }
+        public ErrorLog ErrorLog { get; set; }
 
-		private async void LoadLog(Guid errorId)
-		{
-			IErrorLog log = await _currentSource.Value.GetLog(errorId);
-			ErrorLog = new ErrorLog(log);
-		}
+        public string StatusMessage { get; set; }
 
-		private void ErrorLogsPropertyChanged(object sender, PropertyChangedEventArgs e)
-		{
-			if (e.PropertyName != "CurrentPage")
-			{
-				return;
-			}
+        [IgnoreAutoChangeNotification]
+        public Version Version => Assembly.GetExecutingAssembly().GetName().Version;
 
-			LoadPage(ErrorLogs.CurrentPage);
-		}
+        private async void LoadLog(Guid errorId)
+        {
+            IErrorLog log = await _currentSource.Value.GetLog(errorId);
+            ErrorLog = new ErrorLog(log);
+        }
 
-		private async void LoadPage(int page)
-		{
-			if (_logs == null)
-			{
-				return;
-			}
+        private void ErrorLogsPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName != "CurrentPage")
+            {
+                return;
+            }
 
-			ErrorLogs.Clear();
+            LoadPage(ErrorLogs.CurrentPage);
+        }
 
-			IResultPage p = await _logs.GetPageAsync(page);
-			if (p.HasItems)
-			{
-				ErrorLogs.CurrentPage = p.Page;
-				ErrorLogs.TotalLogs = _logs.TotalResults;
-				ErrorLogs.AddRange(p.Items);
-			}
-		}
+        private async void LoadPage(int page)
+        {
+            if (_logs == null)
+            {
+                return;
+            }
 
-		private void PropertyChanged(object sender, PropertyChangedEventArgs e)
-		{
-			switch (e.PropertyName)
-			{
-				case "RangeLocked":
-					_lockSpan = EndDateTime - StartDateTime;
-					break;
+            ErrorLogs.Clear();
 
-				case "StartDateTime":
-					if (!RangeLocked)
-					{
-						return;
-					}
+            IResultPage p = await _logs.GetPageAsync(page);
+            if (p.HasItems)
+            {
+                ErrorLogs.CurrentPage = p.Page;
+                ErrorLogs.TotalLogs = _logs.TotalResults;
+                ErrorLogs.AddRange(p.Items);
+            }
+        }
 
-					EndDateTime = StartDateTime + _lockSpan;
-					break;
-			}
-		}
+        private void PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case "RangeLocked":
+                    _lockSpan = EndDateTime - StartDateTime;
+                    break;
 
-		private ViewModel()
-		{
-			string path = Path.Combine(Helpers.ApplicationPath, SettingsSection.Instance.Sources.Location);
-			AggregateCatalog catalog = new AggregateCatalog();
-			catalog.Catalogs.Add(new DirectoryCatalog(path));
+                case "StartDateTime":
+                    if (!RangeLocked)
+                    {
+                        return;
+                    }
 
-			CompositionContainer container = new CompositionContainer(catalog);
+                    EndDateTime = StartDateTime + _lockSpan;
+                    break;
+            }
+        }
 
-			try
-			{
-				container.ComposeParts(this);
-				if (LogSources.Count == 0)
-				{
-					throw new ApplicationException("Could not find any log sources.");
-				}
-			}
-			catch (Exception)
-			{
-				MessageBox.Show("Could not load error sources. Exiting application.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-				Application.Current.Shutdown();
-			}
+        private ViewModel()
+        {
+            string path = Path.Combine(Helpers.ApplicationPath, SettingsSection.Instance.Sources.Location);
+            AggregateCatalog catalog = new AggregateCatalog();
+            catalog.Catalogs.Add(new DirectoryCatalog(path));
 
-			SavedConnections = new Dictionary<string, List<Connection>>();
-			foreach (ConnectionElement conn in SettingsSection.Instance.SavedConnections)
-			{
-				Lazy<ILogSource, ILogSourceMetadata> provider = LogSources[conn.Provider];
-				string providerName = provider.Metadata.Name;
+            CompositionContainer container = new CompositionContainer(catalog);
 
-				if (!SavedConnections.ContainsKey(providerName))
-				{
-					SavedConnections[providerName] = new List<Connection>();
-				}
+            try
+            {
+                container.ComposeParts(this);
+                if (LogSources.Count == 0)
+                {
+                    throw new ApplicationException("Could not find any log sources.");
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Could not load error sources. Exiting application.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                Application.Current.Shutdown();
+            }
 
-				SavedConnections[providerName].Add(new Connection() { Guid = conn.Provider, Name = conn.Name });
-			}
+            SavedConnections = new Dictionary<string, List<Connection>>();
+            foreach (ConnectionElement conn in SettingsSection.Instance.SavedConnections)
+            {
+                Lazy<ILogSource, ILogSourceMetadata> provider = LogSources[conn.Provider];
+                string providerName = provider.Metadata.Name;
 
-			StartDateTime = new DateTime(0, DateTimeKind.Utc);
-			EndDateTime = DateTime.MaxValue;
+                if (!SavedConnections.ContainsKey(providerName))
+                {
+                    SavedConnections[providerName] = new List<Connection>();
+                }
 
-			ErrorLogs = new ErrorLogCollection();
-			INotifyPropertyChanged el = Post.Cast<ErrorLogCollection, INotifyPropertyChanged>(ErrorLogs);
-			el.PropertyChanged += ErrorLogsPropertyChanged;
+                SavedConnections[providerName].Add(new Connection() { Guid = conn.Provider, Name = conn.Name });
+            }
 
-			INotifyPropertyChanged vm = Post.Cast<ViewModel, INotifyPropertyChanged>(this);
-			vm.PropertyChanged += PropertyChanged;
+            StartDateTime = new DateTime(0, DateTimeKind.Utc);
+            EndDateTime = DateTime.MaxValue;
 
-			Applications = new string[0];
-			Hosts = new string[0];
-			Types = new string[0];
-			Sources = new string[0];
-			Users = new string[0];
-			StatusCodes = new int[0];
+            ErrorLogs = new ErrorLogCollection();
+            INotifyPropertyChanged el = Post.Cast<ErrorLogCollection, INotifyPropertyChanged>(ErrorLogs);
+            el.PropertyChanged += ErrorLogsPropertyChanged;
 
-			ErrorLog = new ErrorLog();
-		}
+            INotifyPropertyChanged vm = Post.Cast<ViewModel, INotifyPropertyChanged>(this);
+            vm.PropertyChanged += PropertyChanged;
 
-		public void LoadSource()
-		{
-			_currentSource.Value.LoadSearchValues();
+            Applications = new string[0];
+            Hosts = new string[0];
+            Types = new string[0];
+            Sources = new string[0];
+            Users = new string[0];
+            StatusCodes = new int[0];
 
-			Applications = _currentSource.Value.Applications.ToArray();
-			Hosts = _currentSource.Value.Hosts.ToArray();
-			Types = _currentSource.Value.Types.ToArray();
-			Sources = _currentSource.Value.Sources.ToArray();
-			Users = _currentSource.Value.Users.ToArray();
-			StatusCodes = _currentSource.Value.StatusCodes.ToArray();
+            ErrorLog = new ErrorLog();
+        }
 
-			_logs = _currentSource.Value.GetLogs(SettingsSection.Instance.Results.ResultsPerPage);
+        public void LoadSource()
+        {
+            _currentSource.Value.LoadSearchValues();
 
-			ErrorLogs.CurrentPage = 1;
-		}
+            Applications = _currentSource.Value.Applications.ToArray();
+            Hosts = _currentSource.Value.Hosts.ToArray();
+            Types = _currentSource.Value.Types.ToArray();
+            Sources = _currentSource.Value.Sources.ToArray();
+            Users = _currentSource.Value.Users.ToArray();
+            StatusCodes = _currentSource.Value.StatusCodes.ToArray();
 
-		public void Search(SearchParameters sp)
-		{
-			_logs = _currentSource.Value.GetLogs(SettingsSection.Instance.Results.ResultsPerPage, sp);
-			LoadPage(1);
-		}
-	}
+            _logs = _currentSource.Value.GetLogs(SettingsSection.Instance.Results.ResultsPerPage);
+
+            ErrorLogs.CurrentPage = 1;
+        }
+
+        public void Search(SearchParameters sp)
+        {
+            _logs = _currentSource.Value.GetLogs(SettingsSection.Instance.Results.ResultsPerPage, sp);
+            LoadPage(1);
+        }
+    }
 }

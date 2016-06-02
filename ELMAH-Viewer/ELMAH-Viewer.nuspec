@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>ELMAH_Viewer</id>
+    <version>$version$</version>
+    <title>ELMAH Log Viewer</title>
+    <authors>Chris Cartwright</authors>
+    <owners>Chris Cartwright</owners>
+    <projectUrl>https://github.com/chris-cartwright/ELMAH-Viewer</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>View ELMAH logs</description>
+    <copyright>Copyright (c) Christopher Cartwright</copyright>
+  </metadata>
+  <files>
+    <file src="**\*.*" target="lib\net45\" exclude="*.pdb;*.nupkg;*.vshost.*"/>
+  </files>
+</package>

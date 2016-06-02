@@ -58,6 +58,7 @@
                 <MenuItem Header="_Refresh"/>
                 <Separator/>
                 <MenuItem Header="Report _Bug" Click="ReportBug_Click"/>
+                <MenuItem Header="Check for updates" Click="CheckForUpdates_Click"/>
                 <Separator/>
                 <MenuItem Header="_Exit"/>
                 <MenuItem Visibility="{x:Static elmahViewer:ViewModel.IsDebug}" Header="Break" Click="Debug_OnClick"/>
@@ -87,7 +88,7 @@
                 </MenuItem.ItemContainerStyle>
             </MenuItem>
         </Menu>
-        <xcad:DockingManager Margin="0,24,0,0">
+        <xcad:DockingManager Margin="0,24,0,22">
             <xcad:LayoutRoot>
                 <xcad:LayoutPanel Orientation="Vertical">
                     <xcad:LayoutAnchorablePane DockHeight="250">
@@ -316,5 +317,13 @@
                 </xcad:LayoutPanel>
             </xcad:LayoutRoot>
         </xcad:DockingManager>
+        <StatusBar Height="22" VerticalAlignment="Bottom">
+            <StatusBarItem>
+                <TextBlock Text="{Binding StatusMessage}"/>
+            </StatusBarItem>
+            <StatusBarItem HorizontalAlignment="Right">
+                <TextBlock Text="{Binding Version}"/>
+            </StatusBarItem>
+        </StatusBar>
     </Grid>
 </Window>
