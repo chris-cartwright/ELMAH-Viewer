@@ -25,13 +25,25 @@ namespace ELMAH_Viewer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://github.com/chris-cartwright/ELMAH-Viewer/releases/latest")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://github.com/chris-cartwright/ELMAH-Viewer")]
         public string UpdateUrl {
             get {
                 return ((string)(this["UpdateUrl"]));
             }
             set {
                 this["UpdateUrl"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool UsePrerelease {
+            get {
+                return ((bool)(this["UsePrerelease"]));
+            }
+            set {
+                this["UsePrerelease"] = value;
             }
         }
     }

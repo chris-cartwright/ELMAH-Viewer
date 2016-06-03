@@ -3,7 +3,10 @@
   <Profiles />
   <Settings>
     <Setting Name="UpdateUrl" Type="System.String" Scope="User">
-      <Value Profile="(Default)">https://github.com/chris-cartwright/ELMAH-Viewer/releases/latest</Value>
+      <Value Profile="(Default)">https://github.com/chris-cartwright/ELMAH-Viewer</Value>
+    </Setting>
+    <Setting Name="UsePrerelease" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>
 </SettingsFile>

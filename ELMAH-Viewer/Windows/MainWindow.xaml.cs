@@ -186,7 +186,7 @@ namespace ELMAH_Viewer.Windows
 
         private async void CheckForUpdates_Click(object sender, RoutedEventArgs e)
         {
-            using (UpdateManager mgr = new UpdateManager(Settings.Default.UpdateUrl, "ELMAH_Viewer"))
+            using (UpdateManager mgr = await UpdateManager.GitHubUpdateManager(Settings.Default.UpdateUrl, "ELMAH_Viewer", prerelease: Settings.Default.UsePrerelease))
             {
                 if (!mgr.IsInstalledApp)
                 {
