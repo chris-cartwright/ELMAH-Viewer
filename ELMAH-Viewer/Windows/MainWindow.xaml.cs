@@ -202,5 +202,10 @@ namespace ELMAH_Viewer.Windows
                     : $"Updated to version {release.Version}. Restart application to use new version.";
             }
         }
+
+        private void RestartApplication_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateManager.RestartApp();
+        }
     }
 }
