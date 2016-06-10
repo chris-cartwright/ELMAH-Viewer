@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+  <userSettings>
+    <ELMAH_Viewer.Properties.Settings>
+      <setting name="UpdateUrl"
+         serializeAs="String"
+         xdt:Transform="SetAttributes"
+         xdt:Locator="Match(name)">
+        <value xdt:Transform="Replace">LOCAL_PATH</value>
+      </setting>
+    </ELMAH_Viewer.Properties.Settings>
+  </userSettings>
+</configuration>

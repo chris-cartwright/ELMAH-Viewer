@@ -41,6 +41,8 @@ local.properties
 *.user
 *.sln.docstates
 App.config
+App.Debug.config
+App.Release.config
 
 # Build results
 
