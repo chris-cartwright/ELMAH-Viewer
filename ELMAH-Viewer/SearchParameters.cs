@@ -14,6 +14,8 @@ namespace ELMAH_Viewer
 		public SearchParameter<byte> Severity { get; set; }
 		public DateTime? BeginTimeStamp { get; set; }
 		public DateTime? EndTimeStamp { get; set; }
+	    public Guid? ErrorId { get; set; }
+	    public string Contains { get; set; }
 
 		ISearchParameter<string> ISearchParameters.Application
 		{
@@ -50,7 +52,7 @@ namespace ELMAH_Viewer
 			get { return Severity; }
 		}
 
-		public SearchParameters()
+	    public SearchParameters()
 		{
 			Application = new SearchParameter<string>();
 			Host = new SearchParameter<string>();

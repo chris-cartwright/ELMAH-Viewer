@@ -245,11 +245,11 @@
     </EmbeddedResource>
     <Content Include="app.config" />
     <Content Include="App.Debug.config">
-		<DependentUpon>App.config</DependentUpon>
-	</Content>
+      <DependentUpon>App.config</DependentUpon>
+    </Content>
     <Content Include="App.Release.config">
-		<DependentUpon>App.config</DependentUpon>
-	</Content>
+      <DependentUpon>App.config</DependentUpon>
+    </Content>
     <None Include="Configuration\ConfigurationSection.csd">
       <Generator>CsdFileGenerator</Generator>
       <LastGenOutput>ConfigurationSection.csd.cs</LastGenOutput>

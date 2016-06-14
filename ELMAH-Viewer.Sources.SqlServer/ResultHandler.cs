@@ -57,6 +57,16 @@ namespace ELMAH_Viewer.Sources.SqlServer
 			{
 				query.Where("[TimeUtc]<=@0", _params.EndTimeStamp);
 			}
+
+		    if (_params.ErrorId != null)
+		    {
+		        query.Where("[ErrorId]=@0", _params.ErrorId);
+		    }
+
+		    if (!String.IsNullOrWhiteSpace(_params.Contains))
+		    {
+		        query.Where("[AllXml] LIKE @0", $"%{_params.Contains}%");
+		    }
 		}
 
 		public ResultHandler(Database connection)

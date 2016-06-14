@@ -58,6 +58,20 @@ namespace ELMAH_Viewer.Windows
             sp.User.AddRange(SearchItemUsers.SelectedOptions);
             sp.StatusCode.AddRange(SearchItemStatusCodes.SelectedOptions.Select(Int32.Parse));
 
+            string searchStr = ViewModel.Instance.SearchString;
+            if (!String.IsNullOrWhiteSpace(searchStr))
+            {
+                Guid guid;
+                if (Guid.TryParse(ViewModel.Instance.SearchString, out guid))
+                {
+                    sp.ErrorId = guid;
+                }
+                else
+                {
+                    sp.Contains = searchStr;
+                }
+            }
+
             if (ViewModel.Instance.StartDateTime != DateTime.MinValue)
             {
                 sp.BeginTimeStamp = ViewModel.Instance.StartDateTime;
@@ -197,8 +211,8 @@ namespace ELMAH_Viewer.Windows
 
                 ViewModel.Instance.StatusMessage = "Checking for and installing available updates...";
                 ReleaseEntry release = await mgr.UpdateApp();
-                ViewModel.Instance.StatusMessage = release == null 
-                    ? "Already latest version." 
+                ViewModel.Instance.StatusMessage = release == null
+                    ? "Already latest version."
                     : $"Updated to version {release.Version}. Restart application to use new version.";
             }
         }

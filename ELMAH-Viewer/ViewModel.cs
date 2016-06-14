@@ -120,6 +120,8 @@ namespace ELMAH_Viewer
 
         public string StatusMessage { get; set; }
 
+        public string SearchString { get; set; }
+
         [IgnoreAutoChangeNotification]
         public Version Version => Assembly.GetExecutingAssembly().GetName().Version;
 
